@@ -13,12 +13,12 @@ const router = express.Router();
 router
   .route('/')
   .get(getProducts)
-  .post(protect, authorize('Farmer', 'Admin'), createProduct);
+  .post(protect, authorize('Vendor', 'Farmer', 'Admin'), createProduct);
 
 router
   .route('/:id')
   .get(getProductById)
-  .put(protect, authorize('Farmer', 'Admin'), updateProduct)
-  .delete(protect, authorize('Farmer', 'Admin'), deleteProduct);
+  .put(protect, authorize('Vendor', 'Farmer', 'Admin'), updateProduct)
+  .delete(protect, authorize('Vendor', 'Farmer', 'Admin'), deleteProduct);
 
 export default router;

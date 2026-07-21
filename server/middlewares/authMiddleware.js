@@ -26,11 +26,32 @@ export const protect = async (req, res, next) => {
 
 export const authorize = (...roles) => {
   return (req, res, next) => {
-    if (!roles.includes(req.user.role)) {
-      return next(
-        new AppError(`User role ${req.user.role} is not authorized`, 403)
-      );
+    const userRole = req.user?.role;
+    
+    // Normalize roles (Vendor & Farmer are synonymous; Customer & Buyer are synonymous)
+    const allowedRoles = new Set(roles);
+
+    // Role Inheritance Logic:
+    // Vendor (and Farmer) inherit Customer/Buyer permissions
+    // Admin inherits all permissions
+    if (userRole === 'Admin') {
+      return next();
     }
-    next();
+
+    if ((userRole === 'Vendor' || userRole === 'Farmer') && (allowedRoles.has('Customer') || allowedRoles.has('Buyer') || allowedRoles.has('Vendor') || allowedRoles.has('Farmer'))) {
+      return next();
+    }
+
+    if ((userRole === 'Customer' || userRole === 'Buyer') && (allowedRoles.has('Customer') || allowedRoles.has('Buyer'))) {
+      return next();
+    }
+
+    if (allowedRoles.has(userRole)) {
+      return next();
+    }
+
+    return next(
+      new AppError(`User role '${userRole}' is not authorized to perform this action`, 403)
+    );
   };
 };

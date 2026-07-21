@@ -7,6 +7,10 @@ const productSchema = new mongoose.Schema(
       required: true,
       ref: 'User',
     },
+    vendorName: {
+      type: String,
+      required: true,
+    },
     name: {
       type: String,
       required: [true, 'Please add a product name'],
@@ -14,7 +18,6 @@ const productSchema = new mongoose.Schema(
     category: {
       type: String,
       required: [true, 'Please select a category'],
-      enum: ['Spices', 'Plantation', 'Fruits', 'Vegetables'],
     },
     description: {
       type: String,
@@ -26,22 +29,45 @@ const productSchema = new mongoose.Schema(
     },
     unit: {
       type: String,
-      required: [true, 'Please add a unit (e.g., kg, ton)'],
+      required: [true, 'Please add a unit (e.g., kg, ton, bag, plant, packet, litre)'],
     },
     stock: {
       type: Number,
       required: [true, 'Please add stock amount'],
     },
-    location: {
+    district: {
       type: String,
-      required: [true, 'Please add source location'],
+      required: [true, 'Please add a district'],
       enum: ['Theni', 'Idukki'],
+    },
+    town: {
+      type: String,
+      required: [true, 'Please add a town'],
     },
     images: [
       {
         type: String,
       },
     ],
+    organic: {
+      type: Boolean,
+      default: false,
+    },
+    harvestSeason: {
+      type: String,
+    },
+    rating: {
+      type: Number,
+      default: 0,
+    },
+    deliveryRadius: {
+      type: Number,
+      default: 100,
+    },
+    isAvailable: {
+      type: Boolean,
+      default: true,
+    },
   },
   {
     timestamps: true,

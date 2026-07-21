@@ -6,15 +6,74 @@ import AppError from '../utils/appError.js';
 // @access  Public
 export const getProducts = async (req, res, next) => {
   try {
-    const { category, location } = req.query;
-    const filter = {};
-    if (category) filter.category = category;
-    if (location) filter.location = location;
+    const { 
+      category, 
+      district, 
+      town, 
+      organic, 
+      harvestSeason, 
+      vendorName, 
+      isAvailable, 
+      rating,
+      minPrice,
+      maxPrice,
+      keyword,
+      sort,
+      page = 1,
+      limit = 12
+    } = req.query;
 
-    const products = await Product.find(filter).populate('farmer', 'name email');
+    const filter = {};
+
+    // Search by keyword (name or description)
+    if (keyword) {
+      filter.$or = [
+        { name: { $regex: keyword, $options: 'i' } },
+        { description: { $regex: keyword, $options: 'i' } }
+      ];
+    }
+
+    // Exact matches
+    if (category) filter.category = category;
+    if (district) filter.district = district;
+    if (town) filter.town = town;
+    if (organic !== undefined) filter.organic = organic === 'true';
+    if (harvestSeason) filter.harvestSeason = harvestSeason;
+    if (vendorName) filter.vendorName = { $regex: vendorName, $options: 'i' };
+    if (isAvailable !== undefined) filter.isAvailable = isAvailable === 'true';
+    
+    // Numeric filters
+    if (rating) filter.rating = { $gte: Number(rating) };
+    if (minPrice || maxPrice) {
+      filter.price = {};
+      if (minPrice) filter.price.$gte = Number(minPrice);
+      if (maxPrice) filter.price.$lte = Number(maxPrice);
+    }
+
+    // Sorting
+    let sortOptions = { createdAt: -1 }; // Default: Newest
+    if (sort === 'price_asc') sortOptions = { price: 1 };
+    else if (sort === 'price_desc') sortOptions = { price: -1 };
+    else if (sort === 'rating_desc') sortOptions = { rating: -1 };
+
+    // Pagination
+    const pageNum = parseInt(page, 10);
+    const limitNum = parseInt(limit, 10);
+    const skip = (pageNum - 1) * limitNum;
+
+    const total = await Product.countDocuments(filter);
+    const products = await Product.find(filter)
+      .populate('farmer', 'name email')
+      .sort(sortOptions)
+      .skip(skip)
+      .limit(limitNum);
+
     res.json({
       success: true,
       count: products.length,
+      total,
+      page: pageNum,
+      pages: Math.ceil(total / limitNum),
       data: products,
     });
   } catch (error) {
