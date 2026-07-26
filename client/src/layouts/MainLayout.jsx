@@ -4,7 +4,6 @@ import { logout } from '../store/authSlice';
 import { Toaster } from 'react-hot-toast';
 import { Leaf, Store, LogIn, UserPlus, LogOut, LayoutDashboard, PlusCircle, ShoppingBag } from 'lucide-react';
 import Navbar from '../components/Navbar';
-import LiveAuctionTicker from '../components/LiveAuctionTicker';
 import AgriAiAdvisorModal from '../components/AgriAiAdvisorModal';
 
 const MainLayout = () => {
@@ -35,9 +34,6 @@ const MainLayout = () => {
   return (
     <div className="min-h-screen flex flex-col font-sans bg-background">
       <Toaster position="top-right" />
-      
-      {/* 2030 Live Auction Ticker */}
-      <LiveAuctionTicker />
 
       {/* Global 2030 AI Assistant Floating Trigger */}
       <AgriAiAdvisorModal />
