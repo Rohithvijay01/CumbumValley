@@ -106,18 +106,18 @@ export const createProduct = async (req, res, next) => {
 
     const product = await Product.create({
       farmer: req.user._id,
-      vendorName: req.user.name || 'Vendor',
+      vendorName: req.user.name || 'Local Farmer',
       name,
       category,
       description,
-      price,
+      price: Number(price),
       unit,
-      stock,
-      district,
-      town,
-      organic,
+      stock: Number(stock),
+      district: district || 'Idukki',
+      town: town || 'Nedumkandam',
+      organic: Boolean(organic),
       harvestSeason,
-      images: images || [],
+      images: images && images.length > 0 ? images : ['/images/products/green-cardamom.jpg'],
     });
 
     res.status(201).json({ success: true, data: product });

@@ -22,8 +22,29 @@ const getImagePath = (name, category) => {
   if (fs.existsSync(imgPath)) {
     return `/images/products/${filename}`;
   }
-  const categoryFilename = category.toLowerCase().replace(/[^a-z0-9]/g, '-') + '.svg';
-  return `/images/placeholders/${categoryFilename}`;
+
+  // Check prefix stripped names (e.g. "Organic Pepper" -> "black-pepper.jpg", "Organic Cardamom" -> "green-cardamom.jpg")
+  const cleanName = baseName.replace(/^(organic|premium|fresh|certified)\s+/i, '');
+  const altFilename = cleanName.toLowerCase().replace(/[^a-z0-9]/g, '-') + '.jpg';
+  const altImgPath = path.join(__dirname, '../client/public/images/products', altFilename);
+  if (fs.existsSync(altImgPath)) {
+    return `/images/products/${altFilename}`;
+  }
+
+  // Category fallback real photo mapping
+  const categoryPhotoMap = {
+    'Spices': '/images/products/green-cardamom.jpg',
+    'Plantation Crops': '/images/products/coffee-beans.jpg',
+    'Fruits': '/images/products/cumbum-grapes.jpg',
+    'Vegetables': '/images/products/tomato.jpg',
+    'Seeds': '/images/products/vegetable-seed-kits.jpg',
+    'Fertilizers': '/images/products/organic-fertilizer.jpg',
+    'Plant Saplings': '/images/products/mango-saplings.jpg',
+    'Agricultural Inputs': '/images/products/drip-irrigation-kit.jpg',
+    'Organic Products': '/images/products/organic-honey.jpg'
+  };
+
+  return categoryPhotoMap[category] || '/images/products/green-cardamom.jpg';
 };
 
 

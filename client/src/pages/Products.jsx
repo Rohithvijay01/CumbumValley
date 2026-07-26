@@ -298,12 +298,20 @@ const Products = () => {
                         <img 
                           src={product.images[0]} 
                           alt={product.name}
-                          className="w-full aspect-[4/3] object-cover"
+                          className="w-full aspect-square object-cover rounded-xl group-hover:scale-105 transition-transform duration-500"
+                          style={{ borderRadius: '12px' }}
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = '/images/products/green-cardamom.jpg';
+                          }}
                         />
                       ) : (
-                        <div className="flex items-center justify-center w-full aspect-[4/3] bg-slate-100 text-slate-400">
-                          <Tag size={32} />
-                        </div>
+                        <img 
+                          src="/images/products/green-cardamom.jpg" 
+                          alt={product.name}
+                          className="w-full aspect-square object-cover rounded-xl group-hover:scale-105 transition-transform duration-500"
+                          style={{ borderRadius: '12px' }}
+                        />
                       )}
                       
                       {/* Rating Badge Overlay */}

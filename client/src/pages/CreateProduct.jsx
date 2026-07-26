@@ -129,6 +129,19 @@ const CreateProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.name.trim()) {
+      toast.error('Please provide a valid product name.');
+      return;
+    }
+    if (Number(formData.price) <= 0 || isNaN(Number(formData.price))) {
+      toast.error('Price must be a positive number greater than ₹0.');
+      return;
+    }
+    if (Number(formData.stock) < 0 || isNaN(Number(formData.stock))) {
+      toast.error('Stock amount cannot be negative.');
+      return;
+    }
+
     setLoading(true);
     try {
       const payload = {
