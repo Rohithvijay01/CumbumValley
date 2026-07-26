@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
 import toast from 'react-hot-toast';
+import { useTheme } from '../context/ThemeContext';
 import { 
   User, Shield, Bell, Globe, Sun, Moon, Leaf, Lock, 
   Smartphone, Check, Save, CloudRain, TrendingUp, Sliders, 
@@ -10,6 +11,7 @@ import {
 
 const Settings = () => {
   const { userInfo } = useSelector((state) => state.auth);
+  const { theme: activeTheme, setTheme } = useTheme();
   const [activeTab, setActiveTab] = useState('account');
   const [saving, setSaving] = useState(false);
 
@@ -472,9 +474,13 @@ const Settings = () => {
                           <button
                             key={item.id}
                             type="button"
-                            onClick={() => setAppearance({ ...appearance, theme: item.id })}
+                            onClick={() => {
+                              setAppearance({ ...appearance, theme: item.id });
+                              setTheme(item.id);
+                              toast.success(`Theme updated to ${item.label}`);
+                            }}
                             className={`flex flex-col items-center justify-center p-4 rounded-2xl border-2 transition-all ${
-                              appearance.theme === item.id
+                              activeTheme === item.id
                                 ? 'border-primary-600 bg-primary-50/50 text-primary-800 font-bold shadow-sm'
                                 : 'border-gray-200 bg-gray-50 text-gray-600 hover:border-gray-300'
                             }`}

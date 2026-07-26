@@ -171,7 +171,7 @@ const CreateProduct = () => {
           <div>
             <span className="inline-flex items-center space-x-2 bg-white/15 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold tracking-wide text-primary-100 mb-3 border border-white/20">
               <Sprout size={14} className="text-emerald-300" />
-              <span>Farmer Self-Service Listing Studio 2030</span>
+              <span>Farmer Self-Service Listing Studio</span>
             </span>
             <h1 className="text-3xl font-display font-extrabold text-white">
               Sell Directly to Customers & Wholesalers

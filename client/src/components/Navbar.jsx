@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../store/authSlice';
+import { useTheme } from '../context/ThemeContext';
 import { 
   Leaf, Search, Bell, Heart, ShoppingCart, MessageSquare, 
   User, LayoutDashboard, Settings, LogOut, Package, Moon, Sun
@@ -9,6 +10,7 @@ import {
 
 const Navbar = () => {
   const { userInfo } = useSelector((state) => state.auth);
+  const { toggleTheme, isDark } = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
@@ -91,8 +93,13 @@ const Navbar = () => {
           <div className="flex items-center space-x-2 sm:space-x-4">
             
             {/* Common Icons */}
-            <button className="p-2 text-gray-500 hover:text-primary-600 hover:bg-primary-50 rounded-full transition-colors hidden sm:block">
-              <Moon size={20} />
+            <button 
+              onClick={toggleTheme}
+              title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              aria-label="Toggle Theme"
+              className="p-2 text-gray-500 hover:text-primary-600 hover:bg-primary-50 rounded-full transition-colors hidden sm:flex items-center justify-center"
+            >
+              {isDark ? <Sun size={20} className="text-amber-400" /> : <Moon size={20} />}
             </button>
             <Link to="/products" className="text-gray-600 hover:text-primary-600 font-medium text-sm transition-colors hidden sm:block px-2">
               Marketplace

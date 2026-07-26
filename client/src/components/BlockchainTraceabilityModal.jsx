@@ -44,7 +44,7 @@ const BlockchainTraceabilityModal = () => {
                   </div>
                   <div>
                     <h3 className="text-lg font-bold text-white flex items-center">
-                      AgriChain 2030 Smart Contract Ledger
+                      AgriChain Smart Contract Ledger
                     </h3>
                     <p className="text-xs text-slate-400">Immutable Soil-to-Table Provenance Verification</p>
                   </div>

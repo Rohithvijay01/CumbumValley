@@ -17,30 +17,30 @@ const Home = () => {
   };
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative w-full overflow-hidden bg-primary-950 text-white rounded-b-[2rem] sm:rounded-b-[3rem] shadow-xl">
-        {/* Abstract Background pattern */}
-        <div className="absolute inset-0 opacity-20 pointer-events-none">
-          <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-primary-500 blur-3xl"></div>
-          <div className="absolute top-1/2 -left-24 w-72 h-72 rounded-full bg-accent blur-3xl"></div>
-        </div>
+      {/* Hero Section with Plantation Background */}
+      <section 
+        className="relative w-full overflow-hidden text-white rounded-b-[2rem] sm:rounded-b-[3rem] shadow-2xl bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/images/home-hero-bg.jpg')" }}
+      >
+        {/* Rich Dark & Gradient Overlay for readability and high contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-950/70 to-slate-950/90 backdrop-blur-[2px]"></div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 flex flex-col items-center text-center">
-          <span className="inline-flex items-center space-x-2 bg-primary-900/50 backdrop-blur-sm border border-primary-800 px-3 py-1 rounded-full text-primary-200 text-sm font-medium mb-6">
-            <Sprout size={16} />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 flex flex-col items-center text-center">
+          <span className="inline-flex items-center space-x-2 bg-emerald-900/60 backdrop-blur-md border border-emerald-500/40 px-3.5 py-1.5 rounded-full text-emerald-200 text-sm font-semibold mb-6 shadow-lg">
+            <Sprout size={16} className="text-emerald-400" />
             <span>Empowering Western Ghats Farmers</span>
           </span>
           
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold font-display tracking-tight mb-6 max-w-4xl">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold font-display tracking-tight mb-6 max-w-4xl drop-shadow-md">
             Fresh from the Farms to <span className="text-primary-400">Your Doorstep</span>
           </h1>
           
-          <p className="text-lg md:text-xl text-primary-100 max-w-2xl mb-10 leading-relaxed font-light">
+          <p className="text-lg md:text-xl text-slate-200 max-w-2xl mb-10 leading-relaxed font-light drop-shadow-sm">
             Discover premium spices, coffee, tea, and fresh produce directly from farmers in Theni and Idukki. No middlemen, just pure quality.
           </p>
 
           {/* Search Bar / CTA */}
-          <form onSubmit={handleSearchSubmit} className="w-full max-w-2xl bg-white rounded-2xl p-2 flex shadow-2xl items-center ring-4 ring-primary-900/60 focus-within:ring-primary-400 transition-all">
+          <form onSubmit={handleSearchSubmit} className="w-full max-w-2xl bg-white/95 backdrop-blur-md rounded-2xl p-2 flex shadow-2xl items-center ring-4 ring-emerald-500/30 focus-within:ring-primary-400 transition-all">
             <div className="pl-4 text-gray-400">
               <Search size={24} />
             </div>
@@ -56,9 +56,9 @@ const Home = () => {
             </button>
           </form>
           
-          <div className="mt-8 flex items-center space-x-6 text-sm text-primary-200">
-            <span className="flex items-center space-x-1.5"><MapPin size={16}/><span>Theni & Idukki</span></span>
-            <span className="flex items-center space-x-1.5"><ShieldCheck size={16}/><span>Verified Sellers</span></span>
+          <div className="mt-8 flex items-center space-x-6 text-sm text-slate-200 font-medium">
+            <span className="flex items-center space-x-1.5 bg-slate-900/60 px-3 py-1 rounded-full border border-slate-700/50 backdrop-blur-sm"><MapPin size={16} className="text-emerald-400"/><span>Theni & Idukki</span></span>
+            <span className="flex items-center space-x-1.5 bg-slate-900/60 px-3 py-1 rounded-full border border-slate-700/50 backdrop-blur-sm"><ShieldCheck size={16} className="text-emerald-400"/><span>Verified Sellers</span></span>
           </div>
         </div>
       </section>
@@ -110,7 +110,7 @@ const Home = () => {
               <div className="bg-primary-100 text-primary-700 w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-6">
                 <ShieldCheck size={28} />
               </div>
-              <h3 className="text-xl font-bold mb-3">Verified 2030 Quality</h3>
+              <h3 className="text-xl font-bold mb-3">Verified Organic Quality</h3>
               <p className="text-muted-foreground leading-relaxed mb-4">Every farmer batch is logged to Polygon AgriNet smart contracts for soil-to-table traceability.</p>
               <BlockchainTraceabilityModal />
             </div>

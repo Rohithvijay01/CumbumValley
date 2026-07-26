@@ -57,7 +57,7 @@ const AgriAiAdvisorModal = () => {
           </span>
         </div>
         <span className="text-xs font-extrabold tracking-wide hidden sm:inline-block pr-1">
-          AI AGRI-ADVISOR 2030
+          AI AGRI-ADVISOR
         </span>
         <Sparkles size={14} className="text-yellow-300 animate-pulse" />
       </motion.button>
@@ -80,7 +80,7 @@ const AgriAiAdvisorModal = () => {
                   </div>
                   <div>
                     <div className="flex items-center space-x-2">
-                      <h2 className="text-xl font-display font-bold text-white">AgriBrain 2030 AI Assistant</h2>
+                      <h2 className="text-xl font-display font-bold text-white">AgriBrain AI Assistant</h2>
                       <span className="bg-emerald-500/20 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-500/30">
                         V4.8 NEURAL
                       </span>
@@ -102,7 +102,7 @@ const AgriAiAdvisorModal = () => {
               {/* Navigation Tabs */}
               <div className="flex border-b border-slate-800 bg-slate-950/50 px-6 pt-2">
                 {[
-                  { id: 'forecast', label: 'AI Price Predictor 2030', icon: TrendingUp },
+                  { id: 'forecast', label: 'AI Price Predictor', icon: TrendingUp },
                   { id: 'cropScan', label: 'AI Crop Health Diagnostic', icon: Cpu },
                   { id: 'voice', label: 'Voice AI Command', icon: Volume2 },
                 ].map((tab) => {
@@ -219,7 +219,7 @@ const AgriAiAdvisorModal = () => {
                     <div className="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto border border-emerald-500/30 animate-pulse">
                       <Volume2 size={32} />
                     </div>
-                    <h3 className="text-lg font-bold text-slate-100">AgriConnect Voice Assistant 2030</h3>
+                    <h3 className="text-lg font-bold text-slate-100">AgriConnect Voice Assistant</h3>
                     <p className="text-xs text-slate-400 max-w-sm mx-auto">
                       Speak in Tamil, Malayalam, or English to query local market prices or order organic supplies.
                     </p>
