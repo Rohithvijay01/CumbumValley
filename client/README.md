@@ -1,16 +1,30 @@
-# React + Vite
+# 🌿 AgriConnect - Client Application (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React 19 single-page client powered by Vite 8, Redux Toolkit, and Tailwind CSS v4.
 
-Currently, two official plugins are available:
+> 📖 **Main Documentation**: For the full system architecture, API documentation, screenshots, and setup instructions, please see the [Root README.md](../README.md).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Quick Start (Client Only)
 
-## React Compiler
+```bash
+# Navigate to client directory
+cd client
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# Install dependencies
+npm install
 
-## Expanding the Oxlint configuration
+# Start Vite dev server
+npm run dev
+# Or run direct binary:
+# node node_modules/vite/bin/vite.js
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+App will run at: `http://localhost:5173/`
+
+## 🛠️ Key Frontend Highlights
+
+- **React 19**: Modern component structure using Hooks, Suspense, and functional components.
+- **Redux Toolkit**: Centralized state management for Authentication (`authSlice`) and User Info.
+- **Tailwind CSS v4**: CSS-first design token setup with `@import "tailwindcss";` and `@theme`.
+- **Global Theme Engine**: `ThemeContext` providing Light/Dark mode with automatic system preference detection and `localStorage` persistence.
+- **AgriBrain AI Assistant**: Interactive modals with Recharts price forecasting visualizers.
