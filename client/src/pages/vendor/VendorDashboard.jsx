@@ -71,7 +71,7 @@ const VendorDashboard = () => {
         <div className="lg:col-span-2 bg-white rounded-3xl p-6 shadow-soft border border-gray-100">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-lg font-display font-bold text-gray-900">Revenue Overview</h2>
-            <select className="bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2 transition-colors">
+            <select aria-label="Revenue timeframe" className="bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2 transition-colors">
               <option>Last 7 days</option>
               <option>Last 30 days</option>
               <option>This Year</option>

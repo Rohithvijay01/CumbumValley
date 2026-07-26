@@ -121,7 +121,7 @@ const VendorProfile = () => {
               </div>
               <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100">
                 <div className="flex items-center space-x-3">
-                  <Store className="text-purple-500" size={20} />
+                  <Store className="text-teal-500" size={20} />
                   <span className="text-sm font-medium text-gray-900">GST Registration</span>
                 </div>
                 <span className="text-xs font-bold text-green-600 bg-green-100 px-2 py-1 rounded-md">Verified</span>

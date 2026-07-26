@@ -10,6 +10,9 @@ import CreateProduct from './pages/CreateProduct';
 import Checkout from './pages/Checkout';
 import MyOrders from './pages/MyOrders';
 
+import AuctionList from './pages/auctions/AuctionList';
+import AuctionRoom from './pages/auctions/AuctionRoom';
+
 const ProtectedRoute = ({ children }) => {
   const { userInfo } = useSelector((state) => state.auth);
   return userInfo ? children : <Navigate to="/login" replace />;
@@ -24,6 +27,7 @@ import CustomerProfile from './pages/customer/CustomerProfile';
 import VendorDashboard from './pages/vendor/VendorDashboard';
 import VendorProfile from './pages/vendor/VendorProfile';
 import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminAuctions from './pages/admin/AdminAuctions';
 import Settings from './pages/Settings';
 import Unauthorized from './pages/Unauthorized';
 
@@ -51,6 +55,8 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
           <Route path="products" element={<Products />} />
+          <Route path="auctions" element={<AuctionList />} />
+          <Route path="auctions/:id" element={<AuctionRoom />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="unauthorized" element={<Unauthorized />} />
@@ -73,6 +79,7 @@ function App() {
           
           {/* Admin Routes */}
           <Route path="admin/dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+          <Route path="admin/auctions" element={<AdminRoute><AdminAuctions /></AdminRoute>} />
         </Route>
       </Routes>
     </Router>

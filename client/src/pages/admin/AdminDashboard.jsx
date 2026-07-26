@@ -6,6 +6,7 @@ import {
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer 
 } from 'recharts';
+import { Link } from 'react-router-dom';
 
 const data = [
   { name: 'Jan', vendors: 40, customers: 240 },
@@ -21,7 +22,7 @@ const AdminDashboard = () => {
   const stats = [
     { label: 'Total Revenue', value: '₹2.4M', icon: DollarSign, color: 'text-green-600', bg: 'bg-green-50' },
     { label: 'Total Users', value: '12,450', icon: Users, color: 'text-blue-600', bg: 'bg-blue-50' },
-    { label: 'Active Vendors', value: '840', icon: Store, color: 'text-purple-600', bg: 'bg-purple-50' },
+    { label: 'Active Vendors', value: '840', icon: Store, color: 'text-emerald-600', bg: 'bg-emerald-50' },
     { label: 'Pending Approvals', value: '12', icon: UserCheck, color: 'text-orange-600', bg: 'bg-orange-50' },
     { label: 'Total Products', value: '3,210', icon: Package, color: 'text-indigo-600', bg: 'bg-indigo-50' },
     { label: 'Total Orders', value: '45.2K', icon: ShoppingCart, color: 'text-pink-600', bg: 'bg-pink-50' },
@@ -105,9 +106,9 @@ const AdminDashboard = () => {
             ))}
           </div>
           
-          <button className="w-full mt-4 py-2.5 text-primary-600 font-medium text-sm hover:bg-primary-50 rounded-xl transition-colors">
-            View All Requests
-          </button>
+          <Link to="/admin/auctions" className="block text-center w-full mt-4 py-2.5 text-primary-600 font-medium text-sm hover:bg-primary-50 rounded-xl transition-colors">
+            View All Requests & Live Auctions
+          </Link>
         </div>
       </div>
     </div>
