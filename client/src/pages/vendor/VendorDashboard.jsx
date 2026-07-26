@@ -23,55 +23,55 @@ const VendorDashboard = () => {
   const { userInfo } = useSelector((state) => state.auth);
 
   const stats = [
-    { label: "Today's Sales", value: '₹12,450', icon: DollarSign, color: 'text-green-600', bg: 'bg-green-50' },
-    { label: 'Pending Orders', value: '8', icon: ShoppingCart, color: 'text-orange-600', bg: 'bg-orange-50' },
-    { label: 'Low Stock Alerts', value: '3', icon: AlertTriangle, color: 'text-red-600', bg: 'bg-red-50' },
-    { label: 'Total Products', value: '45', icon: Package, color: 'text-blue-600', bg: 'bg-blue-50' },
+    { label: "Today's Sales", value: '₹12,450', icon: DollarSign, color: 'text-emerald-700', bg: 'bg-emerald-50 border-emerald-100' },
+    { label: 'Pending Orders', value: '8', icon: ShoppingCart, color: 'text-amber-700', bg: 'bg-amber-50 border-amber-100' },
+    { label: 'Low Stock Alerts', value: '3', icon: AlertTriangle, color: 'text-red-700', bg: 'bg-red-50 border-red-100' },
+    { label: 'Total Products', value: '45', icon: Package, color: 'text-slate-700', bg: 'bg-slate-100 border-slate-200' },
   ];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
         <div>
-          <h1 className="text-2xl font-display font-bold text-gray-900">Vendor Analytics Dashboard</h1>
-          <p className="text-gray-500 mt-1">Here's what's happening with your store today.</p>
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Vendor Analytics</h1>
+          <p className="text-slate-500 mt-1 text-sm">Overview of your marketplace performance.</p>
         </div>
         <div className="mt-4 sm:mt-0 flex space-x-3">
-          <Link to="/create-product" className="px-4 py-2 bg-primary-600 text-white font-medium rounded-xl shadow-sm hover:bg-primary-700 transition-all">
+          <Link to="/create-product" className="px-4 py-2 bg-emerald-700 text-white text-sm font-bold rounded-md hover:bg-emerald-800 transition-colors border border-emerald-800">
             + Add Product
           </Link>
         </div>
       </div>
 
       {/* Quick Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {stats.map((stat, idx) => (
-          <div key={idx} className="bg-white rounded-2xl p-6 shadow-soft border border-gray-100 hover:shadow-md transition-shadow">
-            <div className="flex items-center justify-between">
+          <div key={idx} className="bg-white rounded-md p-5 border border-slate-200 shadow-sm flex flex-col justify-between">
+            <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-500">{stat.label}</p>
-                <p className="mt-2 text-3xl font-display font-bold text-gray-900">{stat.value}</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-500">{stat.label}</p>
+                <p className="mt-2 text-2xl font-mono font-bold text-slate-900">{stat.value}</p>
               </div>
-              <div className={`p-3 rounded-xl ${stat.bg}`}>
-                <stat.icon className={`h-6 w-6 ${stat.color}`} />
+              <div className={`p-2 rounded border ${stat.bg}`}>
+                <stat.icon className={`h-5 w-5 ${stat.color}`} />
               </div>
             </div>
-            <div className="mt-4 flex items-center text-sm">
-              <TrendingUp className="h-4 w-4 text-green-500 mr-1" />
-              <span className="text-green-600 font-medium">12%</span>
-              <span className="text-gray-400 ml-2">vs last week</span>
+            <div className="mt-4 flex items-center text-xs font-bold">
+              <TrendingUp className="h-3 w-3 text-emerald-600 mr-1" />
+              <span className="text-emerald-700">12%</span>
+              <span className="text-slate-400 ml-1.5 uppercase tracking-wider">vs last week</span>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Revenue Chart */}
-        <div className="lg:col-span-2 bg-white rounded-3xl p-6 shadow-soft border border-gray-100">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-lg font-display font-bold text-gray-900">Revenue Overview</h2>
-            <select aria-label="Revenue timeframe" className="bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2 transition-colors">
+        <div className="lg:col-span-2 bg-white rounded-md p-5 border border-slate-200 shadow-sm">
+          <div className="flex justify-between items-center mb-6 pb-4 border-b border-slate-100">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-slate-900">Revenue Overview</h2>
+            <select aria-label="Revenue timeframe" className="bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold rounded focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 block p-1.5 transition-colors uppercase tracking-wider">
               <option>Last 7 days</option>
               <option>Last 30 days</option>
               <option>This Year</option>
@@ -79,53 +79,52 @@ const VendorDashboard = () => {
           </div>
           <div className="h-72 w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+              <AreaChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#15803d" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="#15803d" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="#047857" stopOpacity={0.2}/>
+                    <stop offset="95%" stopColor="#047857" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
-                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#6b7280', fontSize: 12}} dy={10} />
-                <YAxis axisLine={false} tickLine={false} tick={{fill: '#6b7280', fontSize: 12}} dx={-10} />
-                <CartesianGrid vertical={false} stroke="#f3f4f6" />
+                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 10, fontWeight: 700}} dy={10} />
+                <YAxis axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 10, fontWeight: 700, fontFamily: 'monospace'}} dx={-10} />
+                <CartesianGrid vertical={false} stroke="#e2e8f0" strokeDasharray="3 3" />
                 <Tooltip 
-                  contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                  contentStyle={{ borderRadius: '4px', border: '1px solid #e2e8f0', boxShadow: '0 1px 2px 0 rgb(0 0 0 / 0.05)', fontSize: '12px', fontWeight: 'bold' }}
                 />
-                <Area type="monotone" dataKey="revenue" stroke="#15803d" strokeWidth={3} fillOpacity={1} fill="url(#colorRevenue)" />
+                <Area type="monotone" dataKey="revenue" stroke="#047857" strokeWidth={2} fillOpacity={1} fill="url(#colorRevenue)" />
               </AreaChart>
             </ResponsiveContainer>
           </div>
         </div>
 
         {/* Recent Orders */}
-        <div className="bg-white rounded-3xl p-6 shadow-soft border border-gray-100">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-lg font-display font-bold text-gray-900">Recent Orders</h2>
-            <Link to="/vendor/orders" className="text-sm font-medium text-primary-600 hover:text-primary-700 flex items-center">
-              View all <ChevronRight size={16} />
+        <div className="bg-white rounded-md border border-slate-200 shadow-sm flex flex-col">
+          <div className="p-5 flex justify-between items-center border-b border-slate-100">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-slate-900">Recent Orders</h2>
+            <Link to="/vendor/orders" className="text-[10px] font-bold text-emerald-700 hover:text-emerald-800 uppercase tracking-wider flex items-center">
+              View all <ChevronRight size={12} className="ml-0.5" />
             </Link>
           </div>
-          <div className="space-y-4">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="flex items-center justify-between p-3 rounded-2xl hover:bg-gray-50 transition-colors">
-                <div className="flex items-center space-x-3">
-                  <div className="h-10 w-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">
-                    M{i}
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-gray-900">Muthu Kumar</p>
-                    <p className="text-xs text-gray-500">2 mins ago</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <p className="text-sm font-bold text-gray-900">₹850</p>
-                  <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-yellow-100 text-yellow-800">
-                    Pending
-                  </span>
-                </div>
-              </div>
-            ))}
+          <div className="flex-1 overflow-y-auto">
+            <table className="w-full text-left">
+              <tbody className="divide-y divide-slate-100">
+                {[1, 2, 3, 4].map((i) => (
+                  <tr key={i} className="hover:bg-slate-50 transition-colors">
+                    <td className="p-4">
+                      <p className="text-sm font-bold text-slate-900">Muthu Kumar</p>
+                      <p className="text-xs text-slate-500 font-mono mt-0.5">2 mins ago</p>
+                    </td>
+                    <td className="p-4 text-right">
+                      <p className="text-sm font-bold font-mono text-slate-900 mb-1">₹850</p>
+                      <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800 border border-amber-200">
+                        Pending
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

@@ -17,116 +17,118 @@ const Home = () => {
   };
   return (
     <div className="flex flex-col">
-      {/* Hero Section with Plantation Background */}
-      <section 
-        className="relative w-full overflow-hidden text-white rounded-b-[2rem] sm:rounded-b-[3rem] shadow-2xl bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/images/home-hero-bg.jpg')" }}
-      >
-        {/* Rich Dark & Gradient Overlay for readability and high contrast */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-950/70 to-slate-950/90 backdrop-blur-[2px]"></div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 flex flex-col items-center text-center">
-          <span className="inline-flex items-center space-x-2 bg-emerald-900/60 backdrop-blur-md border border-emerald-500/40 px-3.5 py-1.5 rounded-full text-emerald-200 text-sm font-semibold mb-6 shadow-lg">
-            <Sprout size={16} className="text-emerald-400" />
-            <span>Empowering Western Ghats Farmers</span>
-          </span>
+      {/* Hero Section */}
+      <section className="bg-slate-900 border-b border-slate-800 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20 flex flex-col items-start">
+          <div className="inline-flex items-center space-x-2 bg-slate-800 border border-slate-700 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider text-slate-300 mb-6">
+            <Sprout size={12} className="text-emerald-500" />
+            <span>Western Ghats Agricultural Exchange</span>
+          </div>
           
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold font-display tracking-tight mb-6 max-w-4xl drop-shadow-md">
-            Fresh from the Farms to <span className="text-primary-400">Your Doorstep</span>
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 max-w-4xl text-slate-50">
+            Wholesale Trading Terminal for <span className="text-emerald-500">Premium Commodities</span>
           </h1>
           
-          <p className="text-lg md:text-xl text-slate-200 max-w-2xl mb-10 leading-relaxed font-light drop-shadow-sm">
-            Discover premium spices, coffee, tea, and fresh produce directly from farmers in Theni and Idukki. No middlemen, just pure quality.
+          <p className="text-sm md:text-base text-slate-400 max-w-2xl mb-8 font-mono">
+            Direct market access to verified farmers in Theni and Idukki. Procure spices, coffee, tea, and produce with transparent pricing and blockchain traceability.
           </p>
 
           {/* Search Bar / CTA */}
-          <form onSubmit={handleSearchSubmit} className="w-full max-w-2xl bg-white/95 backdrop-blur-md rounded-2xl p-2 flex shadow-2xl items-center ring-4 ring-emerald-500/30 focus-within:ring-primary-400 transition-all">
-            <div className="pl-4 text-gray-400">
-              <Search size={24} />
+          <form onSubmit={handleSearchSubmit} className="w-full max-w-2xl flex items-center bg-slate-950 border border-slate-700 rounded focus-within:border-emerald-500 transition-colors">
+            <div className="pl-4 text-slate-500">
+              <Search size={18} />
             </div>
             <input 
               type="text" 
-              placeholder="Search for cardamom, coffee, honey..." 
+              placeholder="Search commodities (e.g., Cardamom 8mm, Robusta)..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-4 py-3 outline-none text-gray-900 text-lg bg-transparent placeholder:text-gray-400 font-medium"
+              className="w-full px-4 py-3 outline-none text-slate-200 text-sm bg-transparent placeholder:text-slate-600 font-mono"
             />
-            <button type="submit" className="bg-primary-600 hover:bg-primary-700 active:scale-95 text-white px-6 py-3 rounded-xl font-bold transition-all shadow-md flex-shrink-0">
-              Search
+            <button type="submit" className="bg-emerald-700 hover:bg-emerald-600 active:bg-emerald-800 text-white px-6 py-3 border-l border-emerald-800 text-[11px] font-bold uppercase tracking-wider transition-colors flex-shrink-0">
+              Execute Search
             </button>
           </form>
           
-          <div className="mt-8 flex items-center space-x-6 text-sm text-slate-200 font-medium">
-            <span className="flex items-center space-x-1.5 bg-slate-900/60 px-3 py-1 rounded-full border border-slate-700/50 backdrop-blur-sm"><MapPin size={16} className="text-emerald-400"/><span>Theni & Idukki</span></span>
-            <span className="flex items-center space-x-1.5 bg-slate-900/60 px-3 py-1 rounded-full border border-slate-700/50 backdrop-blur-sm"><ShieldCheck size={16} className="text-emerald-400"/><span>Verified Sellers</span></span>
+          <div className="mt-8 flex items-center space-x-6 text-[11px] text-slate-400 font-bold uppercase tracking-wider">
+            <span className="flex items-center space-x-1.5"><MapPin size={14} className="text-emerald-500"/><span>Theni & Idukki Zones</span></span>
+            <span className="flex items-center space-x-1.5"><ShieldCheck size={14} className="text-emerald-500"/><span>KYC Verified Sellers</span></span>
           </div>
         </div>
       </section>
 
-      {/* Categories / Quick Links */}
-      <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="flex justify-between items-end mb-10">
-          <div>
-            <h2 className="text-3xl font-display font-bold text-foreground">Explore Categories</h2>
-            <p className="text-muted-foreground mt-2">Find exactly what you need from our local producers</p>
+      {/* Categories Grid */}
+      <section className="py-12 bg-slate-50 border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-end mb-6">
+            <div>
+              <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider">Commodity Indices</h2>
+              <p className="text-xs font-mono text-slate-500 mt-1">Browse market sectors and active listings</p>
+            </div>
+            <Link to="/products" className="hidden sm:flex items-center space-x-1 text-emerald-700 text-[11px] font-bold uppercase tracking-wider hover:text-emerald-800 transition-colors">
+              <span>View All Sectors</span>
+              <ArrowRight size={14} />
+            </Link>
           </div>
-          <Link to="/products" className="hidden sm:flex items-center space-x-1 text-primary-600 font-medium hover:text-primary-700 transition-colors">
-            <span>View all</span>
-            <ArrowRight size={18} />
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { name: 'Spices & Condiments', desc: 'Cardamom, Pepper, Clove', id: 'spices' },
+              { name: 'Coffee & Tea', desc: 'Robusta, Arabica, CTC', id: 'beverages' },
+              { name: 'Fresh Produce', desc: 'Fruits, Vegetables, Tubers', id: 'produce' },
+              { name: 'Honey & Oils', desc: 'Wild Honey, Coconut Oil', id: 'extracts' },
+            ].map((category, idx) => (
+              <Link key={idx} to="/products" className="group bg-white border border-slate-200 rounded p-4 hover:border-emerald-500 transition-colors flex flex-col">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="text-slate-700 group-hover:text-emerald-600 transition-colors">
+                    <Sprout size={18} />
+                  </div>
+                  <ArrowRight size={14} className="text-slate-300 group-hover:text-emerald-500 transition-colors" />
+                </div>
+                <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-1">{category.name}</h3>
+                <p className="text-[11px] font-mono text-slate-500">{category.desc}</p>
+              </Link>
+            ))}
+          </div>
+          <Link to="/products" className="sm:hidden mt-6 flex items-center justify-center space-x-1 text-emerald-700 text-[11px] font-bold uppercase tracking-wider hover:text-emerald-800 transition-colors">
+            <span>View All Sectors</span>
+            <ArrowRight size={14} />
           </Link>
         </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-          {[
-            { name: 'Spices', color: 'bg-amber-100', text: 'text-amber-700' },
-            { name: 'Coffee & Tea', color: 'bg-brown-100', text: 'text-orange-900' },
-            { name: 'Fresh Fruits', color: 'bg-green-100', text: 'text-green-700' },
-            { name: 'Honey & Oils', color: 'bg-yellow-100', text: 'text-yellow-700' },
-          ].map((category, idx) => (
-            <Link key={idx} to="/products" className="group rounded-2xl border border-border p-6 hover:shadow-lg transition-all hover:border-primary-200 bg-white flex flex-col items-center justify-center text-center">
-              <div className={`w-16 h-16 rounded-full mb-4 flex items-center justify-center ${category.color} ${category.text} group-hover:scale-110 transition-transform duration-300`}>
-                <Sprout size={32} />
-              </div>
-              <h3 className="font-semibold text-gray-900 group-hover:text-primary-700 transition-colors">{category.name}</h3>
-            </Link>
-          ))}
-        </div>
-        <Link to="/products" className="sm:hidden mt-6 flex items-center justify-center space-x-1 text-primary-600 font-medium hover:text-primary-700 transition-colors">
-          <span>View all products</span>
-          <ArrowRight size={18} />
-        </Link>
       </section>
       
       {/* Value Proposition */}
-      <section className="bg-primary-50 py-20 border-y border-primary-100">
+      <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4">Why Choose AgriConnect?</h2>
-            <p className="text-muted-foreground text-lg">We bridge the gap between hard-working farmers and quality-conscious buyers.</p>
+          <div className="mb-8">
+            <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-1">Platform Infrastructure</h2>
+            <p className="text-xs font-mono text-slate-500">Enterprise-grade procurement and traceability features.</p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-border text-center flex flex-col items-center">
-              <div className="bg-primary-100 text-primary-700 w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-6">
-                <ShieldCheck size={28} />
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="border border-slate-200 rounded p-5 bg-slate-50 flex flex-col items-start">
+              <div className="text-emerald-600 mb-4 bg-emerald-100 p-2 rounded">
+                <ShieldCheck size={20} />
               </div>
-              <h3 className="text-xl font-bold mb-3">Verified Organic Quality</h3>
-              <p className="text-muted-foreground leading-relaxed mb-4">Every farmer batch is logged to Polygon AgriNet smart contracts for soil-to-table traceability.</p>
+              <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-2">Immutable Traceability</h3>
+              <p className="text-[11px] font-mono text-slate-600 leading-relaxed mb-4 flex-grow">Transaction data and quality metrics are anchored to Polygon AgriNet smart contracts for verifiable supply chain audits.</p>
               <BlockchainTraceabilityModal />
             </div>
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-border text-center">
-              <div className="bg-accent/10 text-accent w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-6">
-                <MapPin size={28} />
+            
+            <div className="border border-slate-200 rounded p-5 bg-slate-50 flex flex-col items-start">
+              <div className="text-emerald-600 mb-4 bg-emerald-100 p-2 rounded">
+                <MapPin size={20} />
               </div>
-              <h3 className="text-xl font-bold mb-3">Direct from Source</h3>
-              <p className="text-muted-foreground leading-relaxed">Produce comes straight from the farms of Theni and Idukki to your doorstep, minimizing transit time.</p>
+              <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-2">Direct Procurement</h3>
+              <p className="text-[11px] font-mono text-slate-600 leading-relaxed">Disintermediate the supply chain. Connect directly with farm-gate operations in Western Ghats agricultural zones.</p>
             </div>
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-border text-center">
-              <div className="bg-secondary/10 text-secondary w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-6">
-                <Store size={28} />
+            
+            <div className="border border-slate-200 rounded p-5 bg-slate-50 flex flex-col items-start">
+              <div className="text-emerald-600 mb-4 bg-emerald-100 p-2 rounded">
+                <Store size={20} />
               </div>
-              <h3 className="text-xl font-bold mb-3">Fair Pricing</h3>
-              <p className="text-muted-foreground leading-relaxed">By removing middlemen, farmers get better margins and buyers get high-quality products at fair prices.</p>
+              <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-2">Market Efficiency</h3>
+              <p className="text-[11px] font-mono text-slate-600 leading-relaxed">Real-time price discovery and transparent bidding mechanics ensure optimal pricing for both growers and institutional buyers.</p>
             </div>
           </div>
         </div>
