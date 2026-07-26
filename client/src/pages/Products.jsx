@@ -147,11 +147,11 @@ const Products = () => {
             </button>
           </div>
           
-          <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm space-y-6">
+          <div className="bg-white p-5 rounded-md border border-slate-200 shadow-sm space-y-6">
             
             {/* Category Filter */}
             <div>
-              <h4 className="font-semibold mb-3 text-sm text-gray-700 uppercase tracking-wider">Category</h4>
+              <h4 className="font-semibold mb-3 text-sm text-gray-700">Category</h4>
               <div className="space-y-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
                 {categories.map(cat => (
                   <label key={cat} className="flex items-center space-x-2 cursor-pointer">
@@ -170,7 +170,7 @@ const Products = () => {
 
             {/* Region Filter */}
             <div>
-              <h4 className="font-semibold mb-3 text-sm text-gray-700 uppercase tracking-wider">Region (District)</h4>
+              <h4 className="font-semibold mb-3 text-sm text-gray-700">Region (District)</h4>
               <select 
                 value={filters.district} 
                 onChange={(e) => handleFilterChange('district', e.target.value)}
@@ -183,7 +183,7 @@ const Products = () => {
 
             {/* Price Filter */}
             <div>
-              <h4 className="font-semibold mb-3 text-sm text-gray-700 uppercase tracking-wider">Price Range (₹)</h4>
+              <h4 className="font-semibold mb-3 text-sm text-gray-700">Price Range (₹)</h4>
               <div className="flex items-center space-x-2">
                 <input 
                   type="number" 
@@ -205,7 +205,7 @@ const Products = () => {
 
             {/* Specific Traits */}
             <div>
-              <h4 className="font-semibold mb-3 text-sm text-gray-700 uppercase tracking-wider">Features</h4>
+              <h4 className="font-semibold mb-3 text-sm text-gray-700">Features</h4>
               <div className="space-y-3">
                 <label className="flex items-center space-x-2 cursor-pointer">
                   <input 
@@ -230,7 +230,7 @@ const Products = () => {
 
             {/* Rating Filter */}
             <div>
-              <h4 className="font-semibold mb-3 text-sm text-gray-700 uppercase tracking-wider">Rating</h4>
+              <h4 className="font-semibold mb-3 text-sm text-gray-700">Rating</h4>
               <div className="space-y-2">
                 {[4, 3].map(rating => (
                   <label key={rating} className="flex items-center space-x-2 cursor-pointer">
@@ -274,76 +274,75 @@ const Products = () => {
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {products.map((product) => (
-                  <div key={product._id} className="bg-white rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 border border-border overflow-hidden transition-all duration-300 group flex flex-col h-full relative">
+                  <div key={product._id} className="bg-white rounded-md shadow-sm hover:shadow-md border border-slate-200 overflow-hidden transition-shadow group flex flex-col h-full relative">
                     
                     {/* Badges */}
                     <div className="absolute top-2 left-2 z-10 flex flex-col gap-1">
                       {product.organic && (
-                        <span className="bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm flex items-center">
-                          <CheckCircle size={10} className="mr-1" /> ORGANIC
+                        <span className="bg-emerald-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded flex items-center">
+                          ORGANIC
                         </span>
                       )}
                       {!product.isAvailable && (
-                        <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm">
+                        <span className="bg-slate-800 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">
                           OUT OF STOCK
                         </span>
                       )}
                     </div>
 
                     {/* Image Area */}
-                    <div className="bg-gray-50 p-2 w-full relative">
+                    <div className="bg-slate-50 w-full relative border-b border-slate-100">
                       {product.images && product.images.length > 0 ? (
                         <img 
                           src={product.images[0]} 
                           alt={product.name}
-                          className="w-full aspect-square object-cover rounded-xl group-hover:scale-105 transition-transform duration-500"
-                          style={{ borderRadius: '12px' }}
+                          className="w-full aspect-[4/3] object-cover"
                         />
                       ) : (
-                        <div className="flex items-center justify-center w-full aspect-square rounded-xl bg-gray-100 text-gray-400" style={{ borderRadius: '12px' }}>
-                          <Tag size={40} />
+                        <div className="flex items-center justify-center w-full aspect-[4/3] bg-slate-100 text-slate-400">
+                          <Tag size={32} />
                         </div>
                       )}
                       
                       {/* Rating Badge Overlay */}
                       {product.rating > 0 && (
-                        <div className="absolute bottom-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-md flex items-center space-x-1 shadow-sm">
-                          <span className="text-xs font-bold">{product.rating}</span>
-                          <Star size={10} className="text-yellow-400 fill-current" />
+                        <div className="absolute bottom-2 left-2 bg-white px-1.5 py-0.5 rounded border border-slate-200 flex items-center space-x-1 shadow-sm">
+                          <span className="text-xs font-bold text-slate-700">{product.rating}</span>
+                          <Star size={10} className="text-amber-400 fill-current" />
                         </div>
                       )}
                     </div>
                     
                     {/* Content Area */}
-                    <div className="p-4 flex flex-col flex-1">
-                      <div className="text-xs text-muted-foreground mb-1 font-medium">{product.vendorName || product.farmer?.name}</div>
-                      <h3 className="text-sm font-bold text-foreground line-clamp-2 leading-snug mb-2 group-hover:text-primary-700 transition-colors">
+                    <div className="p-3 flex flex-col flex-1">
+                      <div className="text-[11px] text-slate-500 mb-1 font-medium uppercase tracking-wider">{product.vendorName || product.farmer?.name}</div>
+                      <h3 className="text-sm font-bold text-slate-900 line-clamp-2 leading-snug mb-2 group-hover:text-primary-700 transition-colors">
                         {product.name}
                       </h3>
                       
-                      <div className="flex items-center space-x-2 text-xs text-gray-500 mb-3 flex-1">
-                        <MapPin size={12} className="text-primary-500" />
+                      <div className="flex items-center space-x-2 text-xs text-slate-500 mb-3 flex-1">
+                        <MapPin size={12} className="text-slate-400" />
                         <span className="truncate">{product.town}, {product.district}</span>
                       </div>
                       
-                      <div className="flex items-end justify-between pt-3 border-t border-gray-100">
+                      <div className="flex items-end justify-between pt-3 border-t border-slate-100 mt-auto">
                         <div className="flex flex-col">
-                          <span className="font-bold text-lg text-foreground leading-none">
+                          <span className="font-bold text-lg text-slate-900 leading-none">
                             ₹{product.price}
-                            <span className="text-xs font-normal text-muted-foreground ml-0.5">/{product.unit}</span>
+                            <span className="text-xs font-normal text-slate-500 ml-0.5">/{product.unit}</span>
                           </span>
                         </div>
                         <Link 
                           to={`/checkout?product=${product._id}`} 
-                          className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                          className={`px-3 py-1.5 rounded-md text-xs font-bold flex items-center justify-center transition-colors border ${
                             product.isAvailable 
-                              ? 'bg-primary-50 text-primary-600 hover:bg-primary-600 hover:text-white' 
-                              : 'bg-gray-100 text-gray-400 cursor-not-allowed pointer-events-none'
+                              ? 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50 hover:border-primary-500 hover:text-primary-700' 
+                              : 'bg-slate-50 border-slate-200 text-slate-400 cursor-not-allowed pointer-events-none'
                           }`}
                         >
-                          <ShoppingCart size={14} />
+                          Buy
                         </Link>
                       </div>
                     </div>

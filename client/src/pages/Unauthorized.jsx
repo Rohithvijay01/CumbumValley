@@ -29,7 +29,7 @@ const Unauthorized = () => {
           <ShieldAlert size={40} />
         </div>
 
-        <span className="inline-block px-3 py-1 bg-red-100 text-red-800 text-xs font-bold rounded-full uppercase tracking-wider mb-3">
+        <span className="inline-block px-3 py-1 bg-red-100 text-red-800 text-xs font-bold rounded-full mb-3">
           403 Access Denied
         </span>
 

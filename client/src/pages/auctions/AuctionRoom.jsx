@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useSocket } from '../../context/SocketContext';
 import auctionService from '../../services/auctionService';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Gavel, Clock, ShieldCheck, Leaf, AlertCircle, ArrowLeft } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -59,7 +58,7 @@ const AuctionRoom = () => {
       socket.on('auction_closed', (data) => {
         if (data.auctionId === id) {
           setAuction(prev => ({ ...prev, status: 'Closed', winner: data.winner }));
-          toast('Auction closed!', { icon: '🛑' });
+          toast.success('Auction closed!');
         }
       });
 
@@ -131,7 +130,7 @@ const AuctionRoom = () => {
   if (loading || !auction) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary-600"></div>
       </div>
     );
   }
@@ -141,90 +140,85 @@ const AuctionRoom = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <button onClick={() => navigate('/auctions')} className="flex items-center text-sm text-gray-500 hover:text-gray-900 mb-6 transition-colors">
-        <ArrowLeft size={16} className="mr-1" /> Back to Auctions
+      <button onClick={() => navigate('/auctions')} className="flex items-center text-sm font-bold text-slate-500 hover:text-slate-900 mb-6 transition-colors">
+        <ArrowLeft size={16} className="mr-1" /> BACK
       </button>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         {/* Left Column - Details */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-            <div className="bg-gray-50 border-b border-gray-100 p-6 flex justify-between items-center">
+          <div className="bg-white rounded-md shadow-sm border border-slate-200 overflow-hidden">
+            <div className="bg-slate-50 border-b border-slate-200 p-4 flex justify-between items-center">
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">{auction.productName}</h1>
-                <p className="text-gray-500">Lot #{auction.lotNumber}</p>
+                <h1 className="text-xl font-bold text-slate-900 uppercase tracking-tight">{auction.productName}</h1>
+                <p className="text-slate-500 text-xs font-mono mt-0.5">LOT #{auction.lotNumber}</p>
               </div>
-              <div className={`px-4 py-2 rounded-full font-bold ${
-                auction.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+              <div className={`px-3 py-1 text-xs font-bold uppercase tracking-wider rounded ${
+                auction.status === 'Active' ? 'bg-red-100 text-red-800 border border-red-200' : 'bg-slate-100 text-slate-600 border border-slate-200'
               }`}>
-                {auction.status === 'Active' ? (
-                  <span className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                    LIVE
-                  </span>
-                ) : auction.status}
+                {auction.status}
               </div>
             </div>
 
-            <div className="p-6 grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="bg-gray-50 p-4 rounded-xl">
-                <p className="text-xs text-gray-500 mb-1">Quantity</p>
-                <p className="font-bold text-gray-900">{auction.quantity} kg</p>
+            <div className="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-200 border-b border-slate-200 bg-white">
+              <div className="p-4 flex flex-col justify-center">
+                <p className="text-[10px] uppercase font-bold text-slate-400 mb-1 tracking-wider">Quantity</p>
+                <p className="font-bold text-slate-900 text-lg">{auction.quantity} kg</p>
               </div>
-              <div className="bg-gray-50 p-4 rounded-xl">
-                <p className="text-xs text-gray-500 mb-1">Base Price</p>
-                <p className="font-bold text-gray-900">₹{auction.basePrice}/kg</p>
+              <div className="p-4 flex flex-col justify-center">
+                <p className="text-[10px] uppercase font-bold text-slate-400 mb-1 tracking-wider">Base Price</p>
+                <p className="font-bold text-slate-900 text-lg">₹{auction.basePrice}/kg</p>
               </div>
-              <div className="bg-gray-50 p-4 rounded-xl">
-                <p className="text-xs text-gray-500 mb-1">Grade</p>
-                <p className="font-bold text-primary-600">{auction.qualityGrade}</p>
+              <div className="p-4 flex flex-col justify-center">
+                <p className="text-[10px] uppercase font-bold text-slate-400 mb-1 tracking-wider">Grade</p>
+                <p className="font-bold text-primary-700 text-lg">{auction.qualityGrade}</p>
               </div>
-              <div className="bg-gray-50 p-4 rounded-xl">
-                <p className="text-xs text-gray-500 mb-1">Increment</p>
-                <p className="font-bold text-gray-900">₹{auction.minBidIncrement}</p>
+              <div className="p-4 flex flex-col justify-center">
+                <p className="text-[10px] uppercase font-bold text-slate-400 mb-1 tracking-wider">Min Increment</p>
+                <p className="font-bold text-slate-900 text-lg">₹{auction.minBidIncrement}</p>
               </div>
             </div>
 
-            <div className="p-6 border-t border-gray-100">
-              <h3 className="text-lg font-bold mb-4">Quality Parameters</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-y-4 text-sm">
-                <div>
-                  <span className="text-gray-500">Pod Size: </span>
-                  <span className="font-medium">{auction.podSize} mm</span>
+            <div className="p-4 bg-white">
+              <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">Quality Parameters</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-y-4 gap-x-6 text-sm">
+                <div className="flex justify-between border-b border-slate-100 pb-1">
+                  <span className="text-slate-500 text-xs">Pod Size</span>
+                  <span className="font-bold text-slate-900 text-xs">{auction.podSize} mm</span>
                 </div>
-                <div>
-                  <span className="text-gray-500">Moisture: </span>
-                  <span className="font-medium">{auction.moisture}%</span>
+                <div className="flex justify-between border-b border-slate-100 pb-1">
+                  <span className="text-slate-500 text-xs">Moisture</span>
+                  <span className="font-bold text-slate-900 text-xs">{auction.moisture}%</span>
                 </div>
-                <div>
-                  <span className="text-gray-500">Colour: </span>
-                  <span className="font-medium">{auction.colour}</span>
+                <div className="flex justify-between border-b border-slate-100 pb-1">
+                  <span className="text-slate-500 text-xs">Colour</span>
+                  <span className="font-bold text-slate-900 text-xs">{auction.colour}</span>
                 </div>
-                <div>
-                  <span className="text-gray-500">Volatile Oil: </span>
-                  <span className="font-medium">{auction.volatileOil}%</span>
+                <div className="flex justify-between border-b border-slate-100 pb-1">
+                  <span className="text-slate-500 text-xs">Volatile Oil</span>
+                  <span className="font-bold text-slate-900 text-xs">{auction.volatileOil}%</span>
                 </div>
-                <div>
-                  <span className="text-gray-500">Aroma: </span>
-                  <span className="font-medium">{auction.aroma}</span>
+                <div className="flex justify-between border-b border-slate-100 pb-1">
+                  <span className="text-slate-500 text-xs">Aroma</span>
+                  <span className="font-bold text-slate-900 text-xs">{auction.aroma}</span>
                 </div>
-                <div>
-                  <span className="text-gray-500">Harvest: </span>
-                  <span className="font-medium">{new Date(auction.harvestDate).toLocaleDateString()}</span>
+                <div className="flex justify-between border-b border-slate-100 pb-1">
+                  <span className="text-slate-500 text-xs">Harvest</span>
+                  <span className="font-bold text-slate-900 text-xs">{new Date(auction.harvestDate).toLocaleDateString()}</span>
                 </div>
               </div>
             </div>
 
-            <div className="p-6 border-t border-gray-100 bg-gray-50 flex gap-4">
+            <div className="p-3 border-t border-slate-200 bg-slate-50 flex gap-3">
               {auction.organicBadge && (
-                <div className="flex items-center text-green-700 bg-green-100 px-3 py-1 rounded-full text-xs font-bold">
-                  <Leaf size={14} className="mr-1" /> Certified Organic
+                <div className="flex items-center text-emerald-800 bg-emerald-100 border border-emerald-200 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">
+                  <Leaf size={12} className="mr-1" /> Certified Organic
                 </div>
               )}
               {auction.verifiedFarmerBadge && (
-                <div className="flex items-center text-blue-700 bg-blue-100 px-3 py-1 rounded-full text-xs font-bold">
-                  <ShieldCheck size={14} className="mr-1" /> Verified Farmer
+                <div className="flex items-center text-blue-800 bg-blue-100 border border-blue-200 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">
+                  <ShieldCheck size={12} className="mr-1" /> Verified Farmer
                 </div>
               )}
             </div>
@@ -235,100 +229,105 @@ const AuctionRoom = () => {
         <div className="space-y-6">
           
           {/* Timer & Current Bid */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 text-center">
-            <h2 className="text-gray-500 font-medium mb-2 flex items-center justify-center gap-2">
-              <Clock size={18} /> Time Remaining
-            </h2>
-            <div className={`text-4xl font-display font-bold mb-6 ${timeLeft === 'EXPIRED' ? 'text-red-500' : 'text-gray-900'}`}>
-              {timeLeft}
+          <div className="bg-slate-900 rounded-md shadow-sm border border-slate-800 text-white overflow-hidden">
+            <div className="p-4 border-b border-slate-800 flex justify-between items-center bg-slate-950">
+              <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider flex items-center gap-1.5"><Clock size={12} /> Time Remaining</span>
+              <span className={`text-sm font-mono font-bold ${timeLeft === 'EXPIRED' ? 'text-red-500' : 'text-emerald-400'}`}>
+                {timeLeft}
+              </span>
             </div>
 
-            <div className="bg-primary-50 rounded-xl p-6 mb-6">
-              <p className="text-sm text-primary-600 font-medium mb-1">Current Highest Bid</p>
-              <p className="text-4xl font-bold text-primary-700">₹{currentHighest}<span className="text-lg">/kg</span></p>
+            <div className="p-6 text-center border-b border-slate-800">
+              <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider mb-2">Highest Bid</p>
+              <p className="text-4xl font-mono font-bold text-white tracking-tight">₹{currentHighest}<span className="text-sm text-slate-500 ml-1">/kg</span></p>
               {auction.currentHighestBid && (
-                <p className="text-sm text-primary-600 mt-2">by {auction.currentHighestBid.buyer.name}</p>
+                <p className="text-xs text-emerald-400 mt-2 font-mono">by {auction.currentHighestBid.buyer.name}</p>
               )}
             </div>
 
             {auction.status === 'Active' ? (
-              <form onSubmit={handlePlaceBid} className="space-y-4">
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <span className="text-gray-500">₹</span>
+              <div className="p-4 bg-slate-900">
+                <form onSubmit={handlePlaceBid} className="space-y-3">
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <span className="text-slate-400 font-mono font-bold">₹</span>
+                    </div>
+                    <input
+                      type="number"
+                      min={currentHighest + (auction.currentHighestBid ? auction.minBidIncrement : 0)}
+                      required
+                      value={bidAmount}
+                      onChange={(e) => setBidAmount(e.target.value)}
+                      className="block w-full pl-8 pr-12 py-3 bg-slate-950 border border-slate-700 rounded-md text-white font-mono font-bold focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+                      placeholder="Enter amount"
+                    />
+                    <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                      <span className="text-slate-500 text-xs font-bold uppercase tracking-wider">/kg</span>
+                    </div>
                   </div>
-                  <input
-                    type="number"
-                    min={currentHighest + (auction.currentHighestBid ? auction.minBidIncrement : 0)}
-                    required
-                    value={bidAmount}
-                    onChange={(e) => setBidAmount(e.target.value)}
-                    className="block w-full pl-8 pr-12 py-4 border border-gray-300 rounded-xl text-xl font-bold focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                    placeholder="Enter bid amount"
-                  />
-                  <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                    <span className="text-gray-500">/kg</span>
-                  </div>
-                </div>
-                <button
-                  type="submit"
-                  disabled={!userInfo || userInfo.role === 'Farmer'}
-                  className="w-full bg-primary-600 hover:bg-primary-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold py-4 rounded-xl flex justify-center items-center gap-2 transition-colors shadow-sm"
-                >
-                  <Gavel size={20} /> Place Bid
-                </button>
-                {userInfo?.role === 'Farmer' && (
-                  <p className="text-xs text-red-500 mt-2 flex items-center justify-center gap-1">
-                    <AlertCircle size={12}/> Farmers cannot bid
-                  </p>
-                )}
-              </form>
+                  <button
+                    type="submit"
+                    disabled={!userInfo || userInfo.role === 'Farmer'}
+                    className="w-full bg-emerald-600 hover:bg-emerald-500 disabled:bg-slate-800 disabled:text-slate-500 disabled:cursor-not-allowed text-white text-sm font-bold uppercase tracking-wider py-3 rounded-md flex justify-center items-center gap-2 transition-colors border border-emerald-500 disabled:border-slate-700"
+                  >
+                    <Gavel size={16} /> Place Bid
+                  </button>
+                  {userInfo?.role === 'Farmer' && (
+                    <p className="text-[10px] text-red-400 mt-2 flex items-center justify-center gap-1 uppercase font-bold">
+                      <AlertCircle size={10}/> Farmers cannot bid
+                    </p>
+                  )}
+                </form>
+              </div>
             ) : (
-              <div className={`p-4 rounded-xl ${isWinner ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'}`}>
+              <div className={`p-4 text-center border-t border-slate-800 ${isWinner ? 'bg-emerald-950/50 text-emerald-400' : 'bg-slate-950 text-slate-500'}`}>
                 {isWinner ? (
                   <div>
-                    <h3 className="font-bold text-lg mb-1 flex items-center justify-center gap-2"><ShieldCheck size={20}/> You Won!</h3>
-                    <p className="text-sm">Proceed to your dashboard to complete the order.</p>
+                    <h3 className="font-bold text-sm mb-1 uppercase tracking-wider flex items-center justify-center gap-1.5"><ShieldCheck size={14}/> You Won</h3>
+                    <p className="text-[10px]">Complete order in dashboard.</p>
                   </div>
                 ) : (
-                  <p className="font-bold">Auction is closed</p>
+                  <p className="text-xs font-bold uppercase tracking-wider">Auction Closed</p>
                 )}
               </div>
             )}
           </div>
 
           {/* Bid History */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-            <div className="p-4 border-b border-gray-100 bg-gray-50 font-bold text-gray-700 flex justify-between items-center">
-              <span>Bid History</span>
-              <span className="text-xs bg-gray-200 px-2 py-1 rounded-full">{bids.length} bids</span>
+          <div className="bg-white rounded-md shadow-sm border border-slate-200 overflow-hidden">
+            <div className="px-4 py-2 border-b border-slate-200 bg-slate-50 flex justify-between items-center">
+              <span className="text-xs font-bold text-slate-900 uppercase tracking-wider">Order Book</span>
+              <span className="text-[10px] font-bold bg-slate-200 text-slate-700 px-1.5 py-0.5 rounded">{bids.length}</span>
             </div>
             <div className="max-h-64 overflow-y-auto">
-              <AnimatePresence>
-                {bids.length > 0 ? bids.map((bid, i) => (
-                  <motion.div
-                    key={bid._id}
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    className={`p-4 border-b border-gray-50 flex justify-between items-center ${i === 0 ? 'bg-primary-50/50' : ''}`}
-                  >
-                    <div>
-                      <p className="font-bold text-gray-900">₹{bid.amount}/kg</p>
-                      <p className="text-xs text-gray-500">{bid.buyer.name}</p>
-                    </div>
-                    <span className="text-xs text-gray-400">
-                      {new Date(bid.createdAt).toLocaleTimeString()}
-                    </span>
-                  </motion.div>
-                )) : (
-                  <div className="p-8 text-center text-gray-500 text-sm">
-                    No bids yet. Be the first to bid!
-                  </div>
-                )}
-              </AnimatePresence>
+              {bids.length > 0 ? (
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-white sticky top-0 border-b border-slate-100">
+                    <tr>
+                      <th className="px-4 py-2 font-bold text-slate-400 uppercase text-[10px]">Price</th>
+                      <th className="px-4 py-2 font-bold text-slate-400 uppercase text-[10px]">Buyer</th>
+                      <th className="px-4 py-2 font-bold text-slate-400 uppercase text-[10px] text-right">Time</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {bids.map((bid, i) => (
+                      <tr key={bid._id} className={i === 0 ? 'bg-emerald-50/50' : 'bg-white hover:bg-slate-50'}>
+                        <td className="px-4 py-2 font-mono font-bold text-slate-900">₹{bid.amount}</td>
+                        <td className="px-4 py-2 text-slate-600 truncate max-w-[100px]">{bid.buyer.name}</td>
+                        <td className="px-4 py-2 text-slate-400 text-right font-mono text-[10px]">
+                          {new Date(bid.createdAt).toLocaleTimeString()}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                <div className="p-8 text-center text-slate-400 text-xs font-medium">
+                  No bids recorded.
+                </div>
+              )}
             </div>
           </div>
-
         </div>
       </div>
     </div>

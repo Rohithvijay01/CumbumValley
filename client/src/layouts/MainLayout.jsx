@@ -49,38 +49,38 @@ const MainLayout = () => {
         <Outlet />
       </main>
 
-      <footer className="bg-white border-t border-border mt-auto">
+      <footer className="bg-white border-t border-slate-200 mt-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center space-x-2 mb-4">
-                <Leaf size={24} className="text-primary-600" />
-                <span className="text-xl font-display font-bold text-foreground">AgriConnect</span>
+                <Leaf size={24} className="text-primary-700" />
+                <span className="text-xl font-display font-bold text-slate-900">AgriConnect</span>
               </div>
-              <p className="text-muted-foreground text-sm max-w-sm">
+              <p className="text-slate-500 text-sm max-w-sm">
                 Empowering farmers in the Western Ghats region by connecting them directly with consumers. Fresh spices, coffee, and produce without middlemen.
               </p>
             </div>
             <div>
-              <h3 className="font-semibold text-foreground mb-4">Quick Links</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Link to="/products" className="hover:text-primary-600 transition-colors">Marketplace</Link></li>
-                <li><Link to="/about" className="hover:text-primary-600 transition-colors">Our Story</Link></li>
-                <li><Link to="/farmers" className="hover:text-primary-600 transition-colors">Meet the Farmers</Link></li>
+              <h3 className="font-semibold text-slate-900 mb-4">Quick Links</h3>
+              <ul className="space-y-2 text-sm text-slate-500">
+                <li><Link to="/products" className="hover:text-primary-700 transition-colors">Marketplace</Link></li>
+                <li><Link to="/about" className="hover:text-primary-700 transition-colors">Our Story</Link></li>
+                <li><Link to="/farmers" className="hover:text-primary-700 transition-colors">Meet the Farmers</Link></li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold text-foreground mb-4">Support</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-primary-600 transition-colors">Help Center</a></li>
-                <li><a href="#" className="hover:text-primary-600 transition-colors">Terms of Service</a></li>
-                <li><a href="#" className="hover:text-primary-600 transition-colors">Privacy Policy</a></li>
+              <h3 className="font-semibold text-slate-900 mb-4">Support</h3>
+              <ul className="space-y-2 text-sm text-slate-500">
+                <li><a href="#" className="hover:text-primary-700 transition-colors">Help Center</a></li>
+                <li><a href="#" className="hover:text-primary-700 transition-colors">Terms of Service</a></li>
+                <li><a href="#" className="hover:text-primary-700 transition-colors">Privacy Policy</a></li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-100 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
+          <div className="border-t border-slate-200 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
             <p>&copy; {new Date().getFullYear()} AgriConnect. All rights reserved.</p>
-            <p className="mt-2 md:mt-0">Made with ❤️ for Theni & Idukki</p>
+            <p className="mt-2 md:mt-0">Built for Theni & Idukki</p>
           </div>
         </div>
       </footer>

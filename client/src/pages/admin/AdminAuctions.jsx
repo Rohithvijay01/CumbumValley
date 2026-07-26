@@ -9,10 +9,6 @@ const AdminAuctions = () => {
   const [auctions, setAuctions] = useState([]);
   const [loading, setLoading] = useState(true);
   const { userInfo } = useSelector((state) => state.auth);
-  // Re-use getAuctions from service, but pass token if we want pending ones. 
-  // Wait, getAuctions in service doesn't pass token currently. I'll fetch directly or add token to getAuctions.
-  // Actually, I can just use axios directly here or update getAuctions to accept an optional token & status.
-  // Let's use axios directly to fetch ALL statuses for admin.
   
   const fetchAdminAuctions = async () => {
     try {
@@ -56,86 +52,86 @@ const AdminAuctions = () => {
   if (loading) {
     return (
       <div className="flex justify-center p-8">
-        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-emerald-600"></div>
       </div>
     );
   }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="mb-8 flex items-center justify-between">
+      <div className="mb-6 flex items-center justify-between border-b border-slate-200 pb-4">
         <div>
-          <h1 className="text-2xl font-display font-bold text-gray-900 flex items-center gap-2">
-            <Gavel className="text-primary-600" /> Auction Management
+          <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2 tracking-tight">
+            <Gavel size={24} className="text-emerald-700" /> Auction Management
           </h1>
-          <p className="text-gray-500 mt-1">Approve pending auction lots and monitor active bidding.</p>
+          <p className="text-slate-500 mt-1 text-sm">Approve pending auction lots and monitor active bidding.</p>
         </div>
-        <Link to="/admin/dashboard" className="text-sm font-medium text-gray-500 hover:text-primary-600">
-          &larr; Back to Dashboard
+        <Link to="/admin/dashboard" className="text-xs font-bold uppercase tracking-wider text-slate-500 hover:text-emerald-700 transition-colors">
+          &larr; Back
         </Link>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+      <div className="bg-white rounded-md shadow-sm border border-slate-200 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider">
-                <th className="p-4 font-semibold">Lot & Product</th>
-                <th className="p-4 font-semibold">Farmer</th>
-                <th className="p-4 font-semibold">Grade / Qty</th>
-                <th className="p-4 font-semibold">Base Price</th>
-                <th className="p-4 font-semibold">Status</th>
-                <th className="p-4 font-semibold text-right">Actions</th>
+              <tr className="bg-slate-50 border-b border-slate-200 text-slate-500 text-[10px] uppercase tracking-wider font-bold">
+                <th className="px-4 py-3">Lot & Product</th>
+                <th className="px-4 py-3">Farmer</th>
+                <th className="px-4 py-3">Grade / Qty</th>
+                <th className="px-4 py-3">Base Price</th>
+                <th className="px-4 py-3">Status</th>
+                <th className="px-4 py-3 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100 text-sm">
+            <tbody className="divide-y divide-slate-100 text-sm">
               {auctions.map((auction) => (
-                <tr key={auction._id} className="hover:bg-gray-50 transition-colors">
-                  <td className="p-4">
-                    <p className="font-bold text-gray-900">{auction.productName}</p>
-                    <p className="text-xs text-gray-500">#{auction.lotNumber}</p>
+                <tr key={auction._id} className="hover:bg-slate-50 transition-colors">
+                  <td className="px-4 py-3">
+                    <p className="font-bold text-slate-900">{auction.productName}</p>
+                    <p className="text-[10px] font-mono text-slate-500 uppercase">#{auction.lotNumber}</p>
                   </td>
-                  <td className="p-4">
-                    <p className="font-medium text-gray-900">{auction.farmer?.name || 'Unknown'}</p>
-                    <p className="text-xs text-gray-500">{auction.farmLocation}</p>
+                  <td className="px-4 py-3">
+                    <p className="font-bold text-slate-900 text-sm">{auction.farmer?.name || 'Unknown'}</p>
+                    <p className="text-[10px] font-mono text-slate-500 uppercase">{auction.farmLocation}</p>
                   </td>
-                  <td className="p-4">
-                    <p className="font-bold text-primary-600">{auction.qualityGrade}</p>
-                    <p className="text-xs text-gray-500">{auction.quantity} kg</p>
+                  <td className="px-4 py-3">
+                    <p className="font-bold text-emerald-700">{auction.qualityGrade}</p>
+                    <p className="text-xs text-slate-500 font-mono">{auction.quantity} kg</p>
                   </td>
-                  <td className="p-4 font-medium text-gray-900">
+                  <td className="px-4 py-3 font-bold font-mono text-slate-900">
                     ₹{auction.basePrice}/kg
                   </td>
-                  <td className="p-4">
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                      auction.status === 'Pending' ? 'bg-orange-100 text-orange-800' :
-                      auction.status === 'Active' ? 'bg-green-100 text-green-800' :
-                      'bg-gray-100 text-gray-800'
+                  <td className="px-4 py-3">
+                    <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border ${
+                      auction.status === 'Pending' ? 'bg-amber-100 text-amber-800 border-amber-200' :
+                      auction.status === 'Active' ? 'bg-emerald-100 text-emerald-800 border-emerald-200' :
+                      'bg-slate-100 text-slate-800 border-slate-200'
                     }`}>
                       {auction.status}
                     </span>
                   </td>
-                  <td className="p-4 flex justify-end space-x-2">
+                  <td className="px-4 py-3 flex justify-end space-x-2">
                     {auction.status === 'Pending' && (
                       <>
                         <button
                           onClick={() => handleUpdateStatus(auction._id, 'Active')}
-                          className="flex items-center text-green-600 hover:text-green-800 bg-green-50 px-3 py-1.5 rounded-lg transition-colors"
+                          className="flex items-center bg-white border border-emerald-300 text-emerald-700 hover:bg-emerald-50 hover:border-emerald-500 px-2 py-1 rounded text-xs font-bold uppercase tracking-wider transition-colors"
                         >
-                          <CheckCircle size={16} className="mr-1" /> Approve
+                          <CheckCircle size={14} className="mr-1" /> Approve
                         </button>
                         <button
                           onClick={() => handleUpdateStatus(auction._id, 'Cancelled')}
-                          className="flex items-center text-red-600 hover:text-red-800 bg-red-50 px-3 py-1.5 rounded-lg transition-colors"
+                          className="flex items-center bg-white border border-red-300 text-red-700 hover:bg-red-50 hover:border-red-500 px-2 py-1 rounded text-xs font-bold uppercase tracking-wider transition-colors"
                         >
-                          <XCircle size={16} className="mr-1" /> Reject
+                          <XCircle size={14} className="mr-1" /> Reject
                         </button>
                       </>
                     )}
                     {auction.status === 'Active' && (
                        <Link
                          to={`/auctions/${auction._id}`}
-                         className="flex items-center text-primary-600 hover:text-primary-800 bg-primary-50 px-3 py-1.5 rounded-lg transition-colors"
+                         className="flex items-center bg-white border border-blue-300 text-blue-700 hover:bg-blue-50 hover:border-blue-500 px-2 py-1 rounded text-xs font-bold uppercase tracking-wider transition-colors"
                        >
                          Monitor
                        </Link>
@@ -146,9 +142,9 @@ const AdminAuctions = () => {
               
               {auctions.length === 0 && (
                 <tr>
-                  <td colSpan="6" className="p-8 text-center text-gray-500">
-                    <AlertCircle className="mx-auto h-8 w-8 text-gray-400 mb-2" />
-                    No auctions found.
+                  <td colSpan="6" className="p-8 text-center text-slate-400">
+                    <AlertCircle className="mx-auto h-6 w-6 text-slate-300 mb-2" />
+                    <p className="text-xs font-bold uppercase tracking-wider">No auctions found.</p>
                   </td>
                 </tr>
               )}

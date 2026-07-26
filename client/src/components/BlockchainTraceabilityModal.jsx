@@ -74,7 +74,7 @@ const BlockchainTraceabilityModal = () => {
 
                 {/* Provenance Steps */}
                 <div className="space-y-4">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">Batch Provenance Audit</h4>
+                  <h4 className="text-xs font-bold text-slate-400">Batch Provenance Audit</h4>
                   
                   <div className="space-y-3 relative pl-6 border-l-2 border-emerald-500/30">
                     <div className="relative">

@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { setCredentials } from '../store/authSlice';
 import API from '../services/api';
 import toast from 'react-hot-toast';
+import { UserPlus, User, Mail, Lock, Briefcase, ArrowRight } from 'lucide-react';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -24,7 +25,7 @@ const Register = () => {
     try {
       const res = await API.post('/auth/register', formData);
       dispatch(setCredentials(res.data.data));
-      toast.success('Registration successful!');
+      toast.success('System registration successful');
       navigate('/dashboard');
     } catch (err) {
       toast.error(err.response?.data?.message || 'Registration failed');
@@ -32,62 +33,88 @@ const Register = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 bg-white p-8 border border-gray-200 rounded-lg shadow-sm">
-      <h2 className="text-2xl font-bold mb-6 text-gray-900 text-center">Register</h2>
-      <form onSubmit={submitHandler} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Name</label>
-          <input
-            type="text"
-            name="name"
-            required
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-primary-500 focus:border-primary-500"
-            value={formData.name}
-            onChange={handleChange}
-          />
+    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-100px)] py-12 px-4 sm:px-6 lg:px-8 bg-slate-50">
+      <div className="w-full max-w-sm bg-white border border-slate-200 rounded shadow-sm overflow-hidden">
+        <div className="bg-slate-900 px-6 py-5 border-b border-slate-800 flex items-center justify-between">
+          <h2 className="text-sm font-bold text-slate-100 uppercase tracking-wider">Entity Registration</h2>
+          <UserPlus size={16} className="text-emerald-500" />
         </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Email</label>
-          <input
-            type="email"
-            name="email"
-            required
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-primary-500 focus:border-primary-500"
-            value={formData.email}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Password</label>
-          <input
-            type="password"
-            name="password"
-            required
-            minLength="6"
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-primary-500 focus:border-primary-500"
-            value={formData.password}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Role</label>
-          <select
-            name="role"
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-primary-500 focus:border-primary-500"
-            value={formData.role}
-            onChange={handleChange}
+        
+        <form onSubmit={submitHandler} className="px-6 py-6 space-y-5">
+          <div>
+            <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center">
+              <User size={12} className="mr-1" /> Legal Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              required
+              className="block w-full border border-slate-300 rounded px-3 py-2 text-sm font-mono focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Full Name / Company"
+            />
+          </div>
+          <div>
+            <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center">
+              <Mail size={12} className="mr-1" /> Contact Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              required
+              className="block w-full border border-slate-300 rounded px-3 py-2 text-sm font-mono focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="operator@agriconnect.com"
+            />
+          </div>
+          <div>
+            <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center">
+              <Lock size={12} className="mr-1" /> Access Token (Password)
+            </label>
+            <input
+              type="password"
+              name="password"
+              required
+              minLength="6"
+              className="block w-full border border-slate-300 rounded px-3 py-2 text-sm font-mono focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="••••••••"
+            />
+          </div>
+          <div>
+            <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center">
+              <Briefcase size={12} className="mr-1" /> Entity Role
+            </label>
+            <select
+              name="role"
+              className="block w-full border border-slate-300 rounded px-3 py-2 text-sm font-mono focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+              value={formData.role}
+              onChange={handleChange}
+            >
+              <option value="Buyer">Institutional Buyer</option>
+              <option value="Farmer">Verified Producer</option>
+            </select>
+          </div>
+          <button
+            type="submit"
+            className="w-full flex justify-center items-center py-2 px-4 border border-emerald-800 rounded text-[11px] font-bold uppercase tracking-wider text-white bg-emerald-700 hover:bg-emerald-600 transition-colors"
           >
-            <option value="Buyer">Buyer</option>
-            <option value="Farmer">Farmer</option>
-          </select>
+            Register Entity <ArrowRight size={14} className="ml-1.5" />
+          </button>
+        </form>
+        
+        <div className="px-6 py-4 bg-slate-50 border-t border-slate-100 text-center">
+          <p className="text-[11px] font-mono text-slate-600">
+            Already registered?{' '}
+            <Link to="/login" className="text-emerald-700 font-bold hover:underline">
+              System Login
+            </Link>
+          </p>
         </div>
-        <button
-          type="submit"
-          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700"
-        >
-          Sign Up
-        </button>
-      </form>
+      </div>
     </div>
   );
 };
