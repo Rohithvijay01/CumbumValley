@@ -102,17 +102,21 @@ export const getProductById = async (req, res, next) => {
 // @access  Private/Farmer
 export const createProduct = async (req, res, next) => {
   try {
-    const { name, category, description, price, unit, stock, location, images } = req.body;
+    const { name, category, description, price, unit, stock, district, town, organic, harvestSeason, images } = req.body;
 
     const product = await Product.create({
       farmer: req.user._id,
+      vendorName: req.user.name || 'Vendor',
       name,
       category,
       description,
       price,
       unit,
       stock,
-      location,
+      district,
+      town,
+      organic,
+      harvestSeason,
       images: images || [],
     });
 

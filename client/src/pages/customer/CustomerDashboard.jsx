@@ -12,7 +12,7 @@ const CustomerDashboard = () => {
   const quickStats = [
     { label: 'Total Orders', value: '12', icon: ShoppingBag, color: 'text-blue-600', bg: 'bg-blue-50' },
     { label: 'Wishlist', value: '5', icon: Heart, color: 'text-red-600', bg: 'bg-red-50' },
-    { label: 'Saved Addresses', value: '2', icon: MapPin, color: 'text-purple-600', bg: 'bg-purple-50' },
+    { label: 'Saved Addresses', value: '2', icon: MapPin, color: 'text-teal-600', bg: 'bg-teal-50' },
     { label: 'Loyalty Points', value: '450', icon: Award, color: 'text-yellow-600', bg: 'bg-yellow-50' },
   ];
 

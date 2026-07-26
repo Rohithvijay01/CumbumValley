@@ -104,6 +104,13 @@ const Navbar = () => {
             <Link to="/products" className="text-gray-600 hover:text-primary-600 font-medium text-sm transition-colors hidden sm:block px-2">
               Marketplace
             </Link>
+            <Link to="/auctions" className="text-gray-600 hover:text-primary-600 font-medium text-sm transition-colors hidden sm:block px-2 flex items-center gap-1">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+              </span>
+              Live Bidding
+            </Link>
 
             {userInfo && (userInfo.role === 'Vendor' || userInfo.role === 'Farmer') && (
               <Link to="/create-product" className="bg-primary-50 text-primary-700 hover:bg-primary-100 px-3.5 py-2 rounded-xl text-xs font-bold transition-all hidden md:flex items-center space-x-1">

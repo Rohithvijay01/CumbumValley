@@ -8,11 +8,29 @@ import errorMiddleware from './middlewares/errorMiddleware.js';
 import authRoutes from './routes/authRoutes.js';
 import productRoutes from './routes/productRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
+import http from 'http';
+import { Server } from 'socket.io';
+import socketHandler from './socket.js';
+import auctionRoutes from './routes/auctionRoutes.js';
+import cronJobs from './utils/cronJobs.js';
 
 dotenv.config();
 connectDB();
 
 const app = express();
+const server = http.createServer(app);
+
+// Setup Socket.io
+const io = new Server(server, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST']
+  }
+});
+socketHandler(io);
+
+// Initialize Cron Jobs
+cronJobs(io);
 
 // Middlewares
 app.use(express.json());
@@ -26,6 +44,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/auctions', auctionRoutes);
 
 // Health check
 app.get('/', (req, res) => {
@@ -36,6 +55,6 @@ app.get('/', (req, res) => {
 app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
 });
