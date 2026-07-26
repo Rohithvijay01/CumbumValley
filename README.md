@@ -43,18 +43,18 @@ Production-ready JWT authentication pipeline with Role-Based Access Control (RBA
 
 ```mermaid
 graph TD
-    Client[React 19 + Vite Single Page App] -->|State Management| Redux[Redux Toolkit + Auth Slice]
-    Client -->|Global Styling & Theme| Theme[ThemeContext - Persistent Dark/Light Engine]
-    Client -->|HTTP REST Requests| API Gateway[Node.js + Express 5 Server]
+    Client["React 19 + Vite Single Page App"] -->|"State Management"| Redux["Redux Toolkit + Auth Slice"]
+    Client -->|"Global Styling & Theme"| Theme["ThemeContext - Persistent Dark/Light Engine"]
+    Client -->|"HTTP REST Requests"| APIGateway["Node.js + Express 5 Server"]
 
-    subgraph Backend Services
-        API Gateway -->|Security Middleware| Sec[Helmet + CORS + JWT Guard]
-        API Gateway -->|Route Handlers| Controllers[Product, User, Order & Auth Controllers]
-        Controllers -->|ORM & Validation| Mongo[Mongoose 9 ODM]
+    subgraph "Backend Services"
+        APIGateway -->|"Security Middleware"| Sec["Helmet + CORS + JWT Guard"]
+        APIGateway -->|"Route Handlers"| Controllers["Product, User, Order & Auth Controllers"]
+        Controllers -->|"ORM & Validation"| Mongo["Mongoose 9 ODM"]
     end
 
-    subgraph Data Tier
-        Mongo -->|TLS Encrypted Connection| Atlas[(MongoDB Atlas Cloud Replica Set)]
+    subgraph "Data Tier"
+        Mongo -->|"TLS Encrypted Connection"| Atlas[("MongoDB Atlas Cloud Replica Set")]
     end
 ```
 
