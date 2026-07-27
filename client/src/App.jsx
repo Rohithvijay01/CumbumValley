@@ -12,6 +12,7 @@ import MyOrders from './pages/MyOrders';
 
 import AuctionList from './pages/auctions/AuctionList';
 import AuctionRoom from './pages/auctions/AuctionRoom';
+import AgriConnectAIDashboard from './pages/ai/AgriConnectAIDashboard';
 
 const ProtectedRoute = ({ children }) => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -57,6 +58,7 @@ function App() {
           <Route path="products" element={<Products />} />
           <Route path="auctions" element={<AuctionList />} />
           <Route path="auctions/:id" element={<AuctionRoom />} />
+          <Route path="agri-ai" element={<AgriConnectAIDashboard />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="unauthorized" element={<Unauthorized />} />

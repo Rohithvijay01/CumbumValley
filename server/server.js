@@ -12,6 +12,7 @@ import http from 'http';
 import { Server } from 'socket.io';
 import socketHandler from './socket.js';
 import auctionRoutes from './routes/auctionRoutes.js';
+import aiRoutes from './routes/aiRoutes.js';
 import cronJobs from './utils/cronJobs.js';
 
 dotenv.config();
@@ -45,6 +46,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/auctions', auctionRoutes);
+app.use('/api/ai', aiRoutes);
 
 // Health check
 app.get('/', (req, res) => {

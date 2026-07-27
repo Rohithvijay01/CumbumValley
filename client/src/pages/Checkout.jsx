@@ -2,10 +2,6 @@ import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
 import API from '../services/api';
 import toast from 'react-hot-toast';
-import { useState, useEffect } from 'react';
-import { useSearchParams, useNavigate, Link } from 'react-router-dom';
-import API from '../services/api';
-import toast from 'react-hot-toast';
 import { ShieldCheck, Truck, ArrowLeft, Loader2, PackageCheck, MapPin, ShoppingCart, ArrowRight } from 'lucide-react';
 
 const Checkout = () => {

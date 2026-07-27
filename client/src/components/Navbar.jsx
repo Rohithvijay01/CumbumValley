@@ -87,6 +87,10 @@ const Navbar = () => {
           {/* Right Navigation */}
           <div className="flex items-center space-x-4">
             
+            <Link to="/agri-ai" className="bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 font-bold text-xs px-3 py-1.5 rounded-full transition-colors flex items-center space-x-1 shadow-2xs">
+              <span>🌿 AgriConnect AI</span>
+            </Link>
+
             <Link to="/products" className="text-slate-600 hover:text-slate-900 font-medium text-sm transition-colors hidden sm:block px-2">
               Marketplace
             </Link>
