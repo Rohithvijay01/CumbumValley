@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import Product from './models/productModel.js';
 import User from './models/userModel.js';
+import AuctionLot from './models/auctionModel.js';
+import Bid from './models/bidModel.js';
 import connectDB from './config/db.js';
 import fs from 'fs';
 import path from 'path';
@@ -212,6 +214,8 @@ const importData = async () => {
     // Clear existing data
     await Product.deleteMany();
     await User.deleteMany();
+    await AuctionLot.deleteMany();
+    await Bid.deleteMany();
 
     console.log('Inserting vendors...');
     const createdUsers = await User.insertMany(vendors);
@@ -222,8 +226,120 @@ const importData = async () => {
     
     console.log('Inserting products...');
     await Product.insertMany(sampleProducts);
-    
     console.log(`${sampleProducts.length} realistic products imported successfully!`);
+
+    console.log('Inserting live e-auction lots...');
+    const sampleAuctions = [
+      {
+        productName: 'Idukki 8mm Bold Green Cardamom (Export Grade)',
+        lotNumber: 'LOT-2026-CARD-001',
+        quantity: 500,
+        basePrice: 2850,
+        minBidIncrement: 10,
+        startTime: new Date(Date.now() - 2 * 60 * 60 * 1000),
+        endTime: new Date(Date.now() + 48 * 60 * 60 * 1000),
+        status: 'Active',
+        farmer: createdUsers[0]._id,
+        farmLocation: 'Nedumkandam, Idukki',
+        images: ['/images/products/green-cardamom.jpg'],
+        organicBadge: true,
+        podSize: 8.5,
+        colour: 'Deep Forest Green',
+        aroma: 'Rich Camphorous & Sweet',
+        moisture: 9.8,
+        volatileOil: 8.1,
+        harvestDate: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+        qualityGrade: 'A+'
+      },
+      {
+        productName: 'Bodinayakanur MG1 Black Pepper (High Piperine)',
+        lotNumber: 'LOT-2026-PEPP-002',
+        quantity: 1000,
+        basePrice: 690,
+        minBidIncrement: 5,
+        startTime: new Date(Date.now() - 5 * 60 * 60 * 1000),
+        endTime: new Date(Date.now() + 24 * 60 * 60 * 1000),
+        status: 'Active',
+        farmer: createdUsers[1]._id,
+        farmLocation: 'Bodinayakanur, Theni',
+        images: ['/images/products/black-pepper.jpg'],
+        organicBadge: true,
+        podSize: 5.0,
+        colour: 'Sun-dried Charcoal Black',
+        aroma: 'Pungent & Spicy',
+        moisture: 10.2,
+        volatileOil: 6.5,
+        harvestDate: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000),
+        qualityGrade: 'A+'
+      },
+      {
+        productName: 'Munnar Organic Orthodox Whole Leaf Tea',
+        lotNumber: 'LOT-2026-TEA-003',
+        quantity: 350,
+        basePrice: 480,
+        minBidIncrement: 5,
+        startTime: new Date(Date.now() - 1 * 60 * 60 * 1000),
+        endTime: new Date(Date.now() + 36 * 60 * 60 * 1000),
+        status: 'Active',
+        farmer: createdUsers[2]._id,
+        farmLocation: 'Munnar, Idukki',
+        images: ['/images/products/tea-leaves.jpg'],
+        organicBadge: true,
+        podSize: 3.5,
+        colour: 'Dark Golden Amber',
+        aroma: 'Floral & Malty',
+        moisture: 4.5,
+        volatileOil: 4.2,
+        harvestDate: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+        qualityGrade: 'A'
+      },
+      {
+        productName: 'Kattappana Single-Origin Arabica Coffee Beans',
+        lotNumber: 'LOT-2026-COFF-004',
+        quantity: 600,
+        basePrice: 520,
+        minBidIncrement: 10,
+        startTime: new Date(Date.now() - 12 * 60 * 60 * 1000),
+        endTime: new Date(Date.now() + 60 * 60 * 60 * 1000),
+        status: 'Active',
+        farmer: createdUsers[3]._id,
+        farmLocation: 'Kattappana, Idukki',
+        images: ['/images/products/arabica-coffee-beans.jpg'],
+        organicBadge: true,
+        podSize: 7.0,
+        colour: 'Uniform Olive Green',
+        aroma: 'Chocolatey & Nutty',
+        moisture: 11.0,
+        volatileOil: 5.8,
+        harvestDate: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000),
+        qualityGrade: 'A+'
+      },
+      {
+        productName: 'Periyakulam Organic Clove Buds (Extra Bold)',
+        lotNumber: 'LOT-2026-CLOV-005',
+        quantity: 250,
+        basePrice: 920,
+        minBidIncrement: 15,
+        startTime: new Date(Date.now() - 3 * 60 * 60 * 1000),
+        endTime: new Date(Date.now() + 18 * 60 * 60 * 1000),
+        status: 'Active',
+        farmer: createdUsers[4]._id,
+        farmLocation: 'Periyakulam, Theni',
+        images: ['/images/products/clove.jpg'],
+        organicBadge: true,
+        podSize: 12.0,
+        colour: 'Reddish Dark Brown',
+        aroma: 'Eugenol Rich Warm Spice',
+        moisture: 8.5,
+        volatileOil: 18.5,
+        harvestDate: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
+        qualityGrade: 'A+'
+      }
+    ];
+
+    await AuctionLot.insertMany(sampleAuctions);
+    console.log(`${sampleAuctions.length} live e-auction lots seeded successfully!`);
+
     process.exit();
   } catch (error) {
     console.error(`Error with data import: ${error}`);
