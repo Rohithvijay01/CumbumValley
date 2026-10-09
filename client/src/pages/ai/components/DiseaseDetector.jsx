@@ -45,19 +45,19 @@ const DiseaseDetector = ({ currentCrop }) => {
   };
 
   return (
-    <div className="bg-white/80 backdrop-blur-md p-6 rounded-3xl border border-slate-200 shadow-lg space-y-6">
+    <div className="bg-white dark:bg-slate-900/90 backdrop-blur-md p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-lg space-y-6 text-slate-900 dark:text-white">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+      <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
         <div>
-          <h3 className="text-xl font-bold text-slate-900 flex items-center">
-            <Sparkles className="text-emerald-600 mr-2" size={22} />
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center">
+            <Sparkles className="text-emerald-600 dark:text-emerald-400 mr-2" size={22} />
             AI Plant Disease Detection
           </h3>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Identify pathogens, fungal rots & leaf blights with Western Ghats diagnostic models
           </p>
         </div>
-        <span className="bg-emerald-50 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full border border-emerald-200">
+        <span className="bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 text-xs font-bold px-3 py-1 rounded-full border border-emerald-200 dark:border-emerald-800">
           Cardamom, Pepper, Tea & Grapes AI
         </span>
       </div>

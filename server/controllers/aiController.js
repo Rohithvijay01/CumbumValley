@@ -1,4 +1,4 @@
-// @desc    AgriConnect AI Controller for Western Ghats Farming Assistant
+// @desc    CumbumValley AI Controller for Western Ghats Farming Assistant
 
 // Regional Data & Crops Knowledge Base
 const WESTERN_GHATS_DATA = {
@@ -561,48 +561,222 @@ export const chatAI = async (req, res, next) => {
 
     const lowerMsg = message.toLowerCase();
 
+    // Dynamic Crop Extraction
+    let targetCrop = crop;
+    if (lowerMsg.includes('cardamom')) targetCrop = 'Cardamom';
+    else if (lowerMsg.includes('pepper')) targetCrop = 'Black Pepper';
+    else if (lowerMsg.includes('tea')) targetCrop = 'Tea';
+    else if (lowerMsg.includes('coffee')) targetCrop = 'Coffee';
+    else if (lowerMsg.includes('grape')) targetCrop = 'Grapes';
+    else if (lowerMsg.includes('banana')) targetCrop = 'Banana';
+    else if (lowerMsg.includes('clove')) targetCrop = 'Clove';
+    else if (lowerMsg.includes('ginger')) targetCrop = 'Ginger';
+    else if (lowerMsg.includes('turmeric')) targetCrop = 'Turmeric';
+
+    // Dynamic District Extraction
+    let targetDistrict = district;
+    if (lowerMsg.includes('kumily')) targetDistrict = 'Kumily';
+    else if (lowerMsg.includes('puttady')) targetDistrict = 'Puttady';
+    else if (lowerMsg.includes('kattappana')) targetDistrict = 'Kattappana';
+    else if (lowerMsg.includes('munnar')) targetDistrict = 'Munnar';
+    else if (lowerMsg.includes('theni')) targetDistrict = 'Theni';
+    else if (lowerMsg.includes('cumbum')) targetDistrict = 'Cumbum';
+    else if (lowerMsg.includes('bodi') || lowerMsg.includes('bodinayakanur')) targetDistrict = 'Bodinayakanur';
+    else if (lowerMsg.includes('nedumkandam')) targetDistrict = 'Nedumkandam';
+
     let responseText = '';
     let advicePayload = null;
 
-    if (lowerMsg.includes('yellow') || lowerMsg.includes('leaves') || lowerMsg.includes('disease')) {
-      responseText = `Yellowing of leaves in ${crop} around ${district} usually points to magnesium deficiency, root knot nematode infestation, or early Katte viral infection. I recommend inspecting leaf undersides for thrips and checking root nodules.`;
+    // Intent 1: Fertilizer / NPK / Soil Nutrients / Compost
+    if (lowerMsg.includes('fertilizer') || lowerMsg.includes('fertiliser') || lowerMsg.includes('npk') || lowerMsg.includes('compost') || lowerMsg.includes('manure') || lowerMsg.includes('nutrient') || lowerMsg.includes('potash') || lowerMsg.includes('nitrogen') || lowerMsg.includes('urea') || lowerMsg.includes('soil feed')) {
+      if (targetCrop === 'Tea') {
+        responseText = `For tea plantations in High Range estates near ${targetDistrict}, apply NPK 15:5:15 complex @ 120 kg/acre split into 4 equal doses during post-monsoon breaks. Supplement with Zinc Sulfate (1%) foliar spray to prevent leaf chlorosis and encourage vigorous vegetative flushing.`;
+        advicePayload = formatExtensionResponse({
+          summary: `Fertilizer Protocol for Tea in ${targetDistrict}.`,
+          explanation: 'Tea requires high nitrogen and potassium ratio (3:1:3) to sustain frequent leaf plucking cycles.',
+          recommendedAction: 'Apply NPK 15:5:15 complex split dose + 1% Zinc Sulfate foliar spray after plucking cycle.',
+          priorityLevel: 'Medium',
+          estimatedCost: '₹1,100 / acre',
+          expectedBenefit: 'Increases Made Tea leaf yield by 22% with enhanced tender shoot density'
+        });
+      } else if (targetCrop === 'Cardamom') {
+        responseText = `For ${targetCrop} in ${targetDistrict}, apply NPK 7:11:17 complex @ 75 kg/acre split into May, August, and November doses. Blend with 500kg enriched Vermicompost + 100kg Neem cake per acre to retain root zone moisture and prevent root nematodes.`;
+        advicePayload = formatExtensionResponse({
+          summary: `Fertilizer Protocol for Cardamom in ${targetDistrict}.`,
+          explanation: 'Acidic forest soils require high potash and organic neem cake to support rhizome tillering.',
+          recommendedAction: 'Ring application of NPK 7:11:17 + Vermicompost 30cm away from plant stem.',
+          priorityLevel: 'High',
+          estimatedCost: '₹1,400 / acre',
+          expectedBenefit: 'Boosts capsule size to 8mm+ export grade'
+        });
+      } else if (targetCrop === 'Black Pepper') {
+        responseText = `For Black Pepper vines in ${targetDistrict}, apply 10kg well-rotted farmyard manure mixed with 100g NPK 12:12:17 per vine twice yearly (May & September). Apply in a ring 30cm away from the support tree trunk.`;
+        advicePayload = formatExtensionResponse({
+          summary: `Fertilizer Protocol for Black Pepper in ${targetDistrict}.`,
+          explanation: 'Balanced NPK prevents vine exhaustion and supports heavy berry spike retention.',
+          recommendedAction: 'Apply farmyard manure + NPK 12:12:17 in a ring 30cm around support tree.',
+          priorityLevel: 'Medium',
+          estimatedCost: '₹950 / acre',
+          expectedBenefit: 'Prevents spike shedding and increases piperine oil concentration'
+        });
+      } else if (targetCrop === 'Grapes') {
+        responseText = `For ${targetDistrict} grape vineyards, apply NPK 10:26:26 complex prior to pruning, followed by drip fertigation of Calcium Nitrate (5g/L) during berry growth for optimal cluster sweetness and crunchiness.`;
+        advicePayload = formatExtensionResponse({
+          summary: `Fertigation Schedule for Grapes in ${targetDistrict}.`,
+          explanation: 'High phosphorus and potassium promote uniform berry set and high Brix sugar content.',
+          recommendedAction: 'Apply NPK 10:26:26 pre-pruning + Calcium Nitrate drip fertigation.',
+          priorityLevel: 'High',
+          estimatedCost: '₹1,600 / acre',
+          expectedBenefit: 'Increases grape sweetness (>18° Brix) and shelf life'
+        });
+      } else {
+        responseText = `For ${targetCrop} in ${targetDistrict}, apply a balanced NPK complex suited for hill slope soils, enriched with 300kg Neem-cake vermicompost per acre. Maintain ring application 30cm from main stem when soil is moist.`;
+        advicePayload = formatExtensionResponse({
+          summary: `Agronomic Fertilizer Plan for ${targetCrop} (${targetDistrict}).`,
+          explanation: 'Hill slope leaching requires split organic-complex applications.',
+          recommendedAction: 'Apply organic vermicompost blend around plant base followed by light mulching.',
+          priorityLevel: 'Medium',
+          estimatedCost: '₹1,200 / acre',
+          expectedBenefit: 'Sustains long-term soil organic carbon and crop vitality'
+        });
+      }
+    } 
+    // Intent 2: Yellow Leaves / Disease / Symptoms / Wilting
+    else if (lowerMsg.includes('yellow') || lowerMsg.includes('leaves') || lowerMsg.includes('leaf') || lowerMsg.includes('disease') || lowerMsg.includes('wilting') || lowerMsg.includes('rot') || lowerMsg.includes('blight') || lowerMsg.includes('katte') || lowerMsg.includes('azhukal') || lowerMsg.includes('rust')) {
+      if (targetCrop === 'Cardamom') {
+        responseText = `Yellowing of leaves in ${targetCrop} around ${targetDistrict} is typically caused by Katte Virus (Mosaic Virus) or Magnesium deficiency due to heavy rainfall leaching. Inspect leaf undersides for thrips scabbing. Root drenching with 1% Bordeaux mixture + 1% Magnesium Sulfate is strongly recommended.`;
+        advicePayload = formatExtensionResponse({
+          summary: `Diagnosis for leaf yellowing in ${targetCrop} (${targetDistrict}).`,
+          explanation: 'Acidic forest soils in Western Ghats often bind magnesium. High rainfall washes out soluble cations.',
+          recommendedAction: 'Drench soil with 1% Bordeaux mixture + apply 1% Magnesium Sulfate + 500g neem cake per clump.',
+          priorityLevel: 'High',
+          estimatedCost: '₹400 / acre',
+          expectedBenefit: 'Restores leaf health within 10 days and prevents Katte virus spread'
+        });
+      } else if (targetCrop === 'Black Pepper') {
+        responseText = `Yellowing and wilting of pepper vines in ${targetDistrict} indicate Phytophthora Foot Rot (Quick Wilt) triggered by water stagnation around support trees. Clear drainage channels immediately and drench vine roots with Potassium Phosphonate (3ml/L).`;
+        advicePayload = formatExtensionResponse({
+          summary: `Phytophthora Foot Rot Alert for Pepper in ${targetDistrict}.`,
+          explanation: 'Saturated soil encourages rapid fungal spore multiplication at vine root base.',
+          recommendedAction: 'Clear root drainage furrows & drench base with Potassium Phosphonate (3ml/L).',
+          priorityLevel: 'High',
+          estimatedCost: '₹1,200 / acre',
+          expectedBenefit: 'Prevents vine mortality and protects entire plantation yield'
+        });
+      } else if (targetCrop === 'Tea') {
+        responseText = `Yellowing tea shoots indicate Blister Blight infection or severe Zinc deficiency. Spray Hexaconazole (1ml/L) combined with Copper Oxychloride (2g/L) immediately after plucking cycle.`;
+        advicePayload = formatExtensionResponse({
+          summary: `Blister Blight & Chlorosis Advisory for Tea in ${targetDistrict}.`,
+          explanation: 'High mist retention on tender shoots triggers fungal blisters.',
+          recommendedAction: 'Foliar spray Hexaconazole (1ml/L) + Copper Oxychloride post-plucking.',
+          priorityLevel: 'High',
+          estimatedCost: '₹600 / acre',
+          expectedBenefit: 'Preserves prime Made Tea flush quality'
+        });
+      } else {
+        responseText = `Foliar yellowing and discoloration in ${targetCrop} around ${targetDistrict} usually signals micro-nutrient deficiency or fungal infection from High Range shade moisture. Apply Bordeaux mixture 1% and drench root zones with bio-agents.`;
+        advicePayload = formatExtensionResponse({
+          summary: `Foliar Health Advisory for ${targetCrop} in ${targetDistrict}.`,
+          explanation: 'Excess shade and soil acidity lower nutrient uptake.',
+          recommendedAction: 'Apply 1% Bordeaux mixture spray & drench with Trichoderma viride.',
+          priorityLevel: 'High',
+          estimatedCost: '₹500 / acre',
+          expectedBenefit: 'Stops fungal infection and restores leaf chlorophyll'
+        });
+      }
+    } 
+    // Intent 3: Weather / Rain / Spraying / Microclimate
+    else if (lowerMsg.includes('rain') || lowerMsg.includes('weather') || lowerMsg.includes('spray') || lowerMsg.includes('humidity') || lowerMsg.includes('monsoon') || lowerMsg.includes('drizzle')) {
+      responseText = `Microclimate telemetry for ${targetDistrict} indicates high relative humidity (82-88%) with intermittent monsoon showers forecast. I advise HOLDING chemical foliar sprays today to prevent chemical wash-off. Ensure terrace drainage furrows are clear and schedule bio-pesticide applications between 7 AM and 10 AM when mist clears.`;
       advicePayload = formatExtensionResponse({
-        summary: `Diagnosis for leaf yellowing in ${crop} (${district}).`,
-        explanation: 'Acidic forest soils in Western Ghats often bind magnesium. High rainfall washes out soluble cations.',
-        recommendedAction: 'Drench soil with 1% Magnesium Sulfate + apply 500g neem cake per clump.',
-        priorityLevel: 'High',
-        estimatedCost: '₹400 / acre',
-        expectedBenefit: 'Restores leaf health within 10 days'
-      });
-    } else if (lowerMsg.includes('rain') || lowerMsg.includes('weather') || lowerMsg.includes('spray')) {
-      responseText = `In ${district}, rain showers are forecast over the next 48 hours. I advise holding off on chemical foliar sprays today to prevent chemical wash-off. Focus on clearing drainage furrows.`;
-      advicePayload = formatExtensionResponse({
-        summary: `Weather & Spraying Advisory for ${district}.`,
+        summary: `Weather & Spraying Advisory for ${targetDistrict}.`,
         explanation: 'Foliar sprays require a minimum 3-hour dry window for leaf cuticle absorption.',
-        recommendedAction: 'Postpone spraying until weather clears. Clear terrace drainage channels.',
+        recommendedAction: 'Postpone spraying until rain spell passes. Clear terrace drainage furrows.',
         priorityLevel: 'Medium',
-        estimatedCost: '₹0',
-        expectedBenefit: 'Prevents wasted chemical expenditure'
+        estimatedCost: '₹0 (Cultural Management)',
+        expectedBenefit: 'Prevents wasted chemical expenditure and protects soil microflora'
       });
-    } else if (lowerMsg.includes('harvest') || lowerMsg.includes('price') || lowerMsg.includes('market')) {
-      responseText = `Cardamom prices at Puttady and Bodi auctions are currently strong at ₹2,450/kg. If your capsules are 85% mature with dark seeds, plan picking over the next 10 days.`;
+    } 
+    // Intent 4: Harvest / Picking / Curing / Spike Maturity
+    else if (lowerMsg.includes('harvest') || lowerMsg.includes('pick') || lowerMsg.includes('picking') || lowerMsg.includes('cure') || lowerMsg.includes('curing') || lowerMsg.includes('maturity') || lowerMsg.includes('ready')) {
+      if (targetCrop === 'Black Pepper') {
+        responseText = `Black Pepper in ${targetDistrict} is ready for harvest when 1 or 2 berries on the spike turn bright red/orange. Pick full spikes, threshed within 24 hours, and sun-dry on clean mats for 3-4 days until moisture drops below 10% and berries turn characteristic dark charcoal black.`;
+        advicePayload = formatExtensionResponse({
+          summary: `Harvest & Processing Protocol for Black Pepper in ${targetDistrict}.`,
+          explanation: 'Harvesting at spike maturity yields maximum garbled MG-1 grade quality.',
+          recommendedAction: 'Harvest when red berries appear on spike. Thresh within 24 hours & sun-dry.',
+          priorityLevel: 'Medium',
+          estimatedCost: '₹120 / kg processing',
+          expectedBenefit: 'Ensures top Garbled MG-1 market price'
+        });
+      } else if (targetCrop === 'Cardamom') {
+        responseText = `Cardamom capsules in ${targetDistrict} are ready for harvest when 85% of capsules are firm with dark brown/black seeds inside. Perform 3 picking rounds spaced 18 days apart. Cure in hot air drying kiln at 45°C - 50°C for 22 hours to preserve vibrant green export color.`;
+        advicePayload = formatExtensionResponse({
+          summary: `Harvest & Curing Guide for Cardamom in ${targetDistrict}.`,
+          explanation: 'Curing at 45-50°C locks in essential volatile oils and retains deep green color.',
+          recommendedAction: 'Schedule 3 picking rounds. Maintain curing kiln temperature at 45-50°C for 22 hours.',
+          priorityLevel: 'Medium',
+          estimatedCost: '₹140 / kg curing',
+          expectedBenefit: 'Fetches premium rates in Puttady & Bodi auctions'
+        });
+      } else {
+        responseText = `Harvest ${targetCrop} in ${targetDistrict} when crop reaches 85-90% maturity. Process under controlled shade/temperature to preserve color and volatile oil content.`;
+        advicePayload = formatExtensionResponse({
+          summary: `Harvesting Guidance for ${targetCrop} in ${targetDistrict}.`,
+          explanation: 'Optimal harvesting window maximizes market grade valuation.',
+          recommendedAction: 'Hand-pick at peak maturity and store in dry ventilated containers.',
+          priorityLevel: 'Medium',
+          estimatedCost: '₹100 / kg',
+          expectedBenefit: 'Maximizes crop market value and minimizes post-harvest loss'
+        });
+      }
+    } 
+    // Intent 5: Pest / Insects / Thrips / Borer / Bugs
+    else if (lowerMsg.includes('pest') || lowerMsg.includes('thrips') || lowerMsg.includes('insect') || lowerMsg.includes('bug') || lowerMsg.includes('borer') || lowerMsg.includes('mealybug')) {
+      responseText = `Cardamom Thrips (Sciothrips cardamomi) and Tea Mosquito Bugs are active in High Range plantations like ${targetDistrict}. Inspect panicles/tender shoots. Spray Spinosad 45 SC (0.3ml/L) or organic Verticillium lecanii (5g/L) during evening hours. Maintain 50% shade diffusion to lower insect breeding.`;
       advicePayload = formatExtensionResponse({
-        summary: `Market & Harvest Advisory for ${crop}.`,
-        explanation: 'Demand in Middle East export markets is pushing green grade-A prices higher.',
-        recommendedAction: 'Pick mature green capsules and cure at 45°C to preserve color.',
+        summary: `Integrated Pest Management (IPM) for ${targetDistrict}.`,
+        explanation: 'Intermittent sunshine and shade humidity favor thrips panicle colonization.',
+        recommendedAction: 'Foliar spray Spinosad 45 SC (0.3ml/L) or Verticillium lecanii during evening hours.',
+        priorityLevel: 'High',
+        estimatedCost: '₹550 / acre',
+        expectedBenefit: 'Prevents capsule scabbing and preserves Grade-A export value'
+      });
+    } 
+    // Intent 6: Price / Market / Rates / Auction / Selling
+    else if (lowerMsg.includes('price') || lowerMsg.includes('market') || lowerMsg.includes('rate') || lowerMsg.includes('auction') || lowerMsg.includes('sell') || lowerMsg.includes('trend')) {
+      responseText = `Current market trend for ${targetCrop} in ${targetDistrict} (Puttady & Bodinayakanur auctions) is BULLISH. Grade-A green cardamom is trading around ₹2,450 - ₹2,850/kg, while MG-1 Black Pepper holds strong at ₹640/kg. High Middle East export demand suggests holding 30% of dried inventory for 2-3 weeks for additional margin.`;
+      advicePayload = formatExtensionResponse({
+        summary: `Market Price & Selling Strategy for ${targetCrop}.`,
+        explanation: 'Strong Middle East & domestic buyer demand is driving auction rates upward.',
+        recommendedAction: 'Hold 30% of cured grade-A inventory for 2-3 weeks to capture peak auction price.',
         priorityLevel: 'Medium',
-        estimatedCost: '₹140 / kg processing',
-        expectedBenefit: 'Maximizes auction returns'
+        estimatedCost: '₹100 / quintal storage',
+        expectedBenefit: 'Realizes additional profit margin of ₹150 - ₹200 per kg'
       });
-    } else {
-      responseText = `Greetings! As your Western Ghats Agricultural Extension Officer, I am here to assist with your ${crop} farm in ${district}. You can ask me about plant diseases, weather impacts, fertilizer plans, pest alerts, or market prices.`;
+    } 
+    // Intent 7: Government Schemes / Subsidies / Grants
+    else if (lowerMsg.includes('scheme') || lowerMsg.includes('subsidy') || lowerMsg.includes('subsidies') || lowerMsg.includes('grant') || lowerMsg.includes('spices board') || lowerMsg.includes('smam') || lowerMsg.includes('govt')) {
+      responseText = `Major government subsidies available for ${targetDistrict} farmers include: 1) Spices Board Replanting Subsidy (₹70,000/ha for cardamom replanting), 2) TN SMAM Scheme (40-50% subsidy on tillers & power sprayers in Theni), and 3) Kerala State Horticulture Mission (50% subsidy up to ₹4.5 Lakhs for shade net/polyhouses in Idukki). Apply at local Krishi Bhavan or Spices Board office with Land Tax receipt and Aadhaar.`;
       advicePayload = formatExtensionResponse({
-        summary: `Extension Officer assistant ready for ${district} region.`,
-        explanation: 'Tailored agricultural recommendations for Western Ghats hill farming.',
-        recommendedAction: 'Select a quick query chip below or upload a plant photo for instant AI diagnosis.',
+        summary: `Government Subsidy Programs for ${targetDistrict} Farmers.`,
+        explanation: 'Subsidies reduce capital cost for replanting and farm mechanization by up to 50%.',
+        recommendedAction: 'Submit Land Tax receipt, Aadhaar, and Bank Passbook to Krishi Bhavan / Spices Board portal.',
         priorityLevel: 'Low',
-        estimatedCost: 'Free Service',
-        expectedBenefit: 'Data-driven precision farming decisions'
+        estimatedCost: '₹0 Application Fee',
+        expectedBenefit: 'Direct bank transfer of up to ₹70,000/ha subsidy'
+      });
+    } 
+    // Fallback General Response
+    else {
+      responseText = `Greetings! As your Western Ghats Agricultural Extension Officer, I am here to assist with your ${targetCrop} farm in ${targetDistrict}. You can ask me about plant diseases, weather impacts, fertilizer plans, pest alerts, harvest timing, or market prices.`;
+      advicePayload = formatExtensionResponse({
+        summary: `Extension Officer Assistant active for ${targetDistrict} region.`,
+        explanation: 'Tailored agronomic recommendations for Western Ghats hill farming.',
+        recommendedAction: 'Select a quick query chip below or ask any specific question on crops, pests, prices or weather.',
+        priorityLevel: 'Low',
+        estimatedCost: 'Free Extension Service',
+        expectedBenefit: 'Data-driven precision farming guidance'
       });
     }
 
@@ -610,8 +784,8 @@ export const chatAI = async (req, res, next) => {
       success: true,
       data: {
         reply: responseText,
-        district,
-        crop,
+        district: targetDistrict,
+        crop: targetCrop,
         extensionOfficerAdvice: advicePayload
       }
     });

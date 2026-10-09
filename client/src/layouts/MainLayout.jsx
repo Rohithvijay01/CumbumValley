@@ -55,7 +55,7 @@ const MainLayout = () => {
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center space-x-2 mb-4">
                 <Leaf size={24} className="text-primary-700" />
-                <span className="text-xl font-display font-bold text-slate-900">AgriConnect</span>
+                <span className="text-xl font-display font-bold text-slate-900">CumbumValley</span>
               </div>
               <p className="text-slate-500 text-sm max-w-sm">
                 Empowering farmers in the Western Ghats region by connecting them directly with consumers. Fresh spices, coffee, and produce without middlemen.
@@ -79,7 +79,7 @@ const MainLayout = () => {
             </div>
           </div>
           <div className="border-t border-slate-200 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
-            <p>&copy; {new Date().getFullYear()} AgriConnect. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} CumbumValley. All rights reserved.</p>
             <p className="mt-2 md:mt-0">Built for Theni & Idukki</p>
           </div>
         </div>

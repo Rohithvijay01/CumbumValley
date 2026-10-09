@@ -56,7 +56,7 @@ const AgriConnectAIDashboard = () => {
                 <span>🌿 Western Ghats Agricultural Extension AI</span>
               </div>
               <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-white tracking-tight">
-                AgriConnect AI Assistant
+                CumbumValley AI Assistant
               </h1>
               <p className="text-sm text-slate-300 max-w-2xl mt-2 leading-relaxed">
                 Precision agronomic intelligence tailored exclusively for High-Range planters in Tamil Nadu (Theni, Cumbum, Bodi) and Kerala (Kumily, Puttady, Munnar, Nedumkandam).
@@ -127,19 +127,19 @@ const AgriConnectAIDashboard = () => {
               <button
                 key={t.id}
                 onClick={() => setActiveTab(t.id)}
-                className={`p-4 rounded-2xl border text-left transition-all flex flex-col justify-between ${
+                className={`p-4 rounded-2xl border text-left transition-all flex flex-col justify-between cursor-pointer ${
                   isActive
-                    ? 'bg-white border-emerald-600 shadow-md ring-2 ring-emerald-500/20 scale-[1.02]'
-                    : 'bg-white/70 border-slate-200 hover:border-emerald-300 hover:bg-white'
+                    ? 'bg-emerald-50 dark:bg-slate-900 border-emerald-600 dark:border-emerald-500 shadow-md ring-2 ring-emerald-500/30 scale-[1.02]'
+                    : 'bg-white dark:bg-slate-900/90 border-slate-200 dark:border-slate-800 hover:border-emerald-400 dark:hover:border-emerald-500'
                 }`}
               >
-                <div className={`w-9 h-9 rounded-xl flex items-center justify-center mb-3 ${t.color}`}>
+                <div className={`w-9 h-9 rounded-xl flex items-center justify-center mb-3 ${t.color} dark:bg-slate-800 dark:text-emerald-400`}>
                   <Icon size={18} />
                 </div>
 
                 <div>
-                  <h4 className="text-xs font-bold text-slate-900 leading-tight">{t.title}</h4>
-                  <p className="text-[10px] text-slate-500 mt-1 line-clamp-1">{t.desc}</p>
+                  <h4 className="text-xs font-bold text-slate-900 dark:text-white leading-tight">{t.title}</h4>
+                  <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-1 line-clamp-1">{t.desc}</p>
                 </div>
               </button>
             );

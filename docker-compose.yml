@@ -1,0 +1,85 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  CumbumValley AgriApp – Docker Compose
+#  One-click demo orchestration for live technical interviews.
+#
+#  Services:
+#    mongo    → MongoDB 7 (local, ephemeral data volume)
+#    backend  → Node.js / Express API on port 5000
+#    frontend → Vite dev server on port 5173
+#
+#  Startup order:  mongo → backend (+ seed) → frontend
+# ─────────────────────────────────────────────────────────────────────────────
+
+services:
+
+  # ── MongoDB ─────────────────────────────────────────────────────────────────
+  mongo:
+    image: mongo:7.0
+    container_name: agri_mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  # ── Backend (Express API + seeder) ──────────────────────────────────────────
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: agri_backend
+    restart: unless-stopped
+    depends_on:
+      mongo:
+        condition: service_healthy
+    environment:
+      PORT: 5000
+      NODE_ENV: development
+      MONGO_URI: mongodb://mongo:27017/agri-app
+      JWT_SECRET: ${JWT_SECRET:-181c432d8942a6153cbb3422f6ca15f3045f539042fc8ae4f20c2240bff3dd0e}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-30d}
+    ports:
+      - "5000:5000"
+    volumes:
+      # Mount server source so code changes reflect without rebuild (dev mode)
+      - ./server:/app
+      - /app/node_modules  # anonymous volume prevents host override of container modules
+      # Mount client/public/images so seeder can check image paths
+      - ./client/public:/app/../client/public:ro
+    # Run seeder first (idempotent – clears + reseeds), then start server
+    command: sh -c "node seeder.js && node server.js"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:5000/"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+  # ── Frontend (Vite dev server) ───────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: agri_frontend
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      # Used by vite.config.js server-side proxy (Node process, not browser).
+      # Must use Docker Compose service name 'backend', not localhost.
+      VITE_BACKEND_URL: http://backend:5000
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+
+volumes:
+  mongo_data:

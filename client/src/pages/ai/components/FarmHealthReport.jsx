@@ -33,20 +33,20 @@ const FarmHealthReport = ({ currentDistrict, currentCrop }) => {
   };
 
   return (
-    <div className="bg-white/80 backdrop-blur-md p-6 rounded-3xl border border-slate-200 shadow-lg space-y-6">
-      <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+    <div className="bg-white dark:bg-slate-900/90 backdrop-blur-md p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-lg space-y-6 text-slate-900 dark:text-white">
+      <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
         <div>
-          <h3 className="text-xl font-bold text-slate-900 flex items-center">
-            <FileText className="text-emerald-600 mr-2" size={22} />
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center">
+            <FileText className="text-emerald-600 dark:text-emerald-400 mr-2" size={22} />
             AI Farm Health & Agronomic Audit Report
           </h3>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Holistic farm scorecard, risk metrics & exportable pdf audit certificate
           </p>
         </div>
       </div>
 
-      <form onSubmit={handleGenerateReport} className="grid grid-cols-1 sm:grid-cols-4 gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+      <form onSubmit={handleGenerateReport} className="grid grid-cols-1 sm:grid-cols-4 gap-3 bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
         <div>
           <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-600 mb-1">Farmer / Estate Name</label>
           <input type="text" value={farmerName} onChange={(e) => setFarmerName(e.target.value)} className="w-full border border-slate-200 rounded-xl p-2 text-xs bg-white font-semibold" />
@@ -89,7 +89,7 @@ const FarmHealthReport = ({ currentDistrict, currentCrop }) => {
           <div className="flex items-center justify-between border-b border-slate-200 pb-4">
             <div>
               <div className="flex items-center space-x-2">
-                <span className="text-xl font-bold text-slate-900">AgriConnect Western Ghats Audit</span>
+                <span className="text-xl font-bold text-slate-900">CumbumValley Western Ghats Audit</span>
                 <span className="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-extrabold">VERIFIED AI REPORT</span>
               </div>
               <p className="text-xs text-slate-500 mt-1 font-mono">Report ID: {report.reportId} | Date: {report.generatedAt}</p>

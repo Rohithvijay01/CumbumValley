@@ -25,7 +25,7 @@ const Register = () => {
     try {
       const res = await API.post('/auth/register', formData);
       dispatch(setCredentials(res.data.data));
-      toast.success('System registration successful');
+      toast.success('Account created successfully!');
       navigate('/dashboard');
     } catch (err) {
       toast.error(err.response?.data?.message || 'Registration failed');
@@ -33,84 +33,93 @@ const Register = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-100px)] py-12 px-4 sm:px-6 lg:px-8 bg-slate-50">
-      <div className="w-full max-w-sm bg-white border border-slate-200 rounded shadow-sm overflow-hidden">
+    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-100px)] py-12 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-950">
+      <div className="w-full max-w-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl overflow-hidden">
         <div className="bg-slate-900 px-6 py-5 border-b border-slate-800 flex items-center justify-between">
-          <h2 className="text-sm font-bold text-slate-100 uppercase tracking-wider">Entity Registration</h2>
-          <UserPlus size={16} className="text-emerald-500" />
+          <div>
+            <h2 className="text-base font-bold text-white tracking-tight">Create Account</h2>
+            <p className="text-xs text-slate-400 mt-0.5">Join CumbumValley Marketplace</p>
+          </div>
+          <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+            <UserPlus size={18} />
+          </div>
         </div>
         
-        <form onSubmit={submitHandler} className="px-6 py-6 space-y-5">
+        <form onSubmit={submitHandler} className="px-6 py-6 space-y-4">
           <div>
-            <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center">
-              <User size={12} className="mr-1" /> Legal Name
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 flex items-center">
+              <User size={12} className="mr-1.5 text-emerald-600 dark:text-emerald-400" /> Full Name / Company
             </label>
             <input
               type="text"
               name="name"
               required
-              className="block w-full border border-slate-300 rounded px-3 py-2 text-sm font-mono focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+              className="block w-full border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-sm bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-colors"
               value={formData.name}
               onChange={handleChange}
-              placeholder="Full Name / Company"
+              placeholder="e.g. Rohith V / High Range Spices"
             />
           </div>
+
           <div>
-            <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center">
-              <Mail size={12} className="mr-1" /> Contact Email
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 flex items-center">
+              <Mail size={12} className="mr-1.5 text-emerald-600 dark:text-emerald-400" /> Email Address
             </label>
             <input
               type="email"
               name="email"
               required
-              className="block w-full border border-slate-300 rounded px-3 py-2 text-sm font-mono focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+              className="block w-full border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-sm bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-colors"
               value={formData.email}
               onChange={handleChange}
-              placeholder="operator@agriconnect.com"
+              placeholder="name@example.com"
             />
           </div>
+
           <div>
-            <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center">
-              <Lock size={12} className="mr-1" /> Access Token (Password)
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 flex items-center">
+              <Lock size={12} className="mr-1.5 text-emerald-600 dark:text-emerald-400" /> Password
             </label>
             <input
               type="password"
               name="password"
               required
               minLength="6"
-              className="block w-full border border-slate-300 rounded px-3 py-2 text-sm font-mono focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+              className="block w-full border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-sm bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-colors"
               value={formData.password}
               onChange={handleChange}
               placeholder="••••••••"
             />
           </div>
+
           <div>
-            <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center">
-              <Briefcase size={12} className="mr-1" /> Entity Role
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 flex items-center">
+              <Briefcase size={12} className="mr-1.5 text-emerald-600 dark:text-emerald-400" /> I am joining as
             </label>
             <select
               name="role"
-              className="block w-full border border-slate-300 rounded px-3 py-2 text-sm font-mono focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+              className="block w-full border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-sm bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-colors"
               value={formData.role}
               onChange={handleChange}
             >
-              <option value="Buyer">Institutional Buyer</option>
-              <option value="Farmer">Verified Producer</option>
+              <option value="Buyer">Buyer / Customer</option>
+              <option value="Farmer">Farmer / Producer</option>
             </select>
           </div>
+
           <button
             type="submit"
-            className="w-full flex justify-center items-center py-2 px-4 border border-emerald-800 rounded text-[11px] font-bold uppercase tracking-wider text-white bg-emerald-700 hover:bg-emerald-600 transition-colors"
+            className="w-full flex justify-center items-center py-3 px-4 rounded-xl text-xs font-extrabold uppercase tracking-wider text-slate-950 bg-emerald-500 hover:bg-emerald-400 shadow-lg shadow-emerald-500/20 transition-all cursor-pointer mt-2"
           >
-            Register Entity <ArrowRight size={14} className="ml-1.5" />
+            Create Account <ArrowRight size={14} className="ml-1.5" />
           </button>
         </form>
         
-        <div className="px-6 py-4 bg-slate-50 border-t border-slate-100 text-center">
-          <p className="text-[11px] font-mono text-slate-600">
+        <div className="px-6 py-4 bg-slate-50 dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800 text-center">
+          <p className="text-xs text-slate-600 dark:text-slate-400">
             Already registered?{' '}
-            <Link to="/login" className="text-emerald-700 font-bold hover:underline">
-              System Login
+            <Link to="/login" className="text-emerald-600 dark:text-emerald-400 font-extrabold hover:underline">
+              Sign In
             </Link>
           </p>
         </div>

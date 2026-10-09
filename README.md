@@ -1,4 +1,4 @@
-# 🌿 AgriConnect: Direct Farm-to-Consumer Agricultural Exchange
+# 🌿 CumbumValley: Direct Farm-to-Consumer Agricultural Exchange
 
 [![React](https://img.shields.io/badge/React-v19.2-blue?logo=react&logoColor=61DAFB)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Vite-v8.1-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
@@ -9,7 +9,7 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4.3-38BDF8?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-An enterprise-grade, direct-to-consumer agricultural exchange web platform built for farmers in the Western Ghats region (**Theni & Idukki**). AgriConnect eliminates intermediate broker commissions, provides predictive AI commodity forecasting, and enforces transparent soil-to-table traceability.
+An enterprise-grade, direct-to-consumer agricultural exchange web platform built for farmers in the Western Ghats region (**Theni & Idukki**). CumbumValley eliminates intermediate broker commissions, provides predictive AI commodity forecasting, and enforces transparent soil-to-table traceability.
 
 ---
 

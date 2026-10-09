@@ -158,7 +158,7 @@ const CreateProduct = () => {
       };
 
       await API.post('/products', payload);
-      toast.success('Product listed successfully on AgriConnect.');
+      toast.success('Product listed successfully on CumbumValley.');
       navigate('/products');
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to list product.');

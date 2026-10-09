@@ -50,7 +50,7 @@ app.use('/api/ai', aiRoutes);
 
 // Health check
 app.get('/', (req, res) => {
-  res.send('AgriConnect API is running...');
+  res.send('CumbumValley API is running...');
 });
 
 // Error handling

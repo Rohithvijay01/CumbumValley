@@ -46,7 +46,7 @@ const Unauthorized = () => {
             <Lock size={14} className="text-red-500" />
             <span>Role-Based Access System Enforced</span>
           </div>
-          <p className="text-gray-500">If you believe this is an error, please contact your AgriConnect platform administrator or log in with an authorized role.</p>
+          <p className="text-gray-500">If you believe this is an error, please contact your CumbumValley platform administrator or log in with an authorized role.</p>
         </div>
 
         <div className="mt-8 flex flex-col sm:flex-row gap-3">

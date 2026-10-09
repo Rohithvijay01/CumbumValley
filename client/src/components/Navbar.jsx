@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../store/authSlice';
+import { useTheme } from '../context/ThemeContext';
 import { 
   Search, Bell, ShoppingCart, MessageSquare, 
-  User, LayoutDashboard, Settings, LogOut, Package 
+  User, LayoutDashboard, Settings, LogOut, Package,
+  Sun, Moon
 } from 'lucide-react';
 
 const Navbar = () => {
   const { userInfo } = useSelector((state) => state.auth);
+  const { theme, toggleTheme, isDark } = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
@@ -63,7 +66,7 @@ const Navbar = () => {
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="flex items-center space-x-2 group">
               <span className="text-xl font-display font-bold text-slate-900 tracking-tight">
-                AgriConnect
+                CumbumValley
               </span>
             </Link>
           </div>
@@ -76,7 +79,7 @@ const Navbar = () => {
               </div>
               <input
                 type="text"
-                className="block w-full pl-9 pr-3 py-2 border border-slate-300 rounded-md text-sm bg-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-colors"
+                className="block w-full pl-9 pr-3 py-2 border border-slate-300 dark:border-slate-800 rounded-md text-sm bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-colors"
                 placeholder="Search marketplace..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -88,7 +91,7 @@ const Navbar = () => {
           <div className="flex items-center space-x-4">
             
             <Link to="/agri-ai" className="bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 font-bold text-xs px-3 py-1.5 rounded-full transition-colors flex items-center space-x-1 shadow-2xs">
-              <span>🌿 AgriConnect AI</span>
+              <span>🌿 CumbumValley AI</span>
             </Link>
 
             <Link to="/products" className="text-slate-600 hover:text-slate-900 font-medium text-sm transition-colors hidden sm:block px-2">
@@ -97,6 +100,21 @@ const Navbar = () => {
             <Link to="/auctions" className="text-slate-600 hover:text-slate-900 font-medium text-sm transition-colors hidden sm:block px-2">
               Live Bidding
             </Link>
+
+            {/* Dark / Light Theme Toggle Button */}
+            <button
+              onClick={toggleTheme}
+              type="button"
+              className="p-2 rounded-full border border-slate-200 hover:border-emerald-500 bg-slate-50 hover:bg-slate-100 text-slate-700 transition-all flex items-center justify-center cursor-pointer shadow-2xs group"
+              title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              aria-label="Toggle Theme"
+            >
+              {isDark ? (
+                <Sun size={17} className="text-amber-400 group-hover:rotate-45 transition-transform" />
+              ) : (
+                <Moon size={17} className="text-slate-700 group-hover:-rotate-12 transition-transform" />
+              )}
+            </button>
 
             {userInfo && (userInfo.role === 'Vendor' || userInfo.role === 'Farmer') && (
               <Link to="/create-product" className="bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200 px-3 py-1.5 rounded-md text-xs font-bold transition-colors hidden md:flex items-center">
